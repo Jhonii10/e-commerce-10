@@ -4,12 +4,13 @@ import './index.css';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import ThemeProvider from './theme';
+import Rutas from './routes/Rutas';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
      <ThemeProvider>
-    <h1>E-ecommerce</h1>
+      <Rutas/>
     </ThemeProvider>
   </React.StrictMode>
 );
