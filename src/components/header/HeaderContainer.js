@@ -50,6 +50,11 @@ const HeaderContainer = styled.header`
           &:hover {
             color: orangered;
           }
+
+          
+        &.active {
+            color: red;
+        }
         }
       }
     }
@@ -68,7 +73,7 @@ const HeaderContainer = styled.header`
       }
 
       &.active {
-        color: var(--color-danger);
+        color: red;
       }
 
       p {
@@ -96,7 +101,7 @@ const HeaderContainer = styled.header`
       }
 
       &.active {
-        color: var(--color-danger);
+        color: red;
       }
     }
   }
