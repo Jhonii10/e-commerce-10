@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
 import { FaCartShopping } from "react-icons/fa6";
 import { BiMenuAltRight } from "react-icons/bi";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { Badge } from '@mui/material';
 
+
+const activeLink = ({isActive})=> isActive ? 'active':''
 
 const logo = (
 
@@ -19,11 +23,20 @@ const logo = (
 
 const cart = (
     <span className='cart'>
-        <Link to='cart'>
-            <FaCartShopping size={20}/>
-        </Link>
+        <NavLink to='cart' className={activeLink}>
+            <Badge 
+                badgeContent={'0'} 
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }} 
+                overlap="rectangular" 
+                color="error"
+            >
+             <FaCartShopping size={20}/>
+            </Badge>
+        </NavLink>
     </span>
 )
+
+
 
 const Header = () => {
 
@@ -51,19 +64,33 @@ const Header = () => {
                     
 
                     <ul onClick={hideMenu}>
-                        <li>
-                            <Link to={'/'}>Home</Link>
+                        <li className='logo-mobile'>
+                            {logo}
+                            <IoCloseCircleOutline size={22} color='#fff' onClick={hideMenu}/>
                         </li>
                         <li>
-                            <Link to={'/contact'}>Contact US</Link>
+                            <NavLink   
+                                to={'/'} 
+                                className={activeLink}
+                                >
+                             Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink 
+                                to={'/contact'}
+                                className={activeLink}
+                                >
+                                Contact US
+                            </NavLink>
                         </li>
                     </ul>
                     
                     <div className='header-right' onClick={hideMenu}>
                         <span className='links'>
-                            <Link to={'/login'}>Login</Link>
-                            <Link to={'/registro'}>Register</Link>
-                            <Link to={'/order-history'}>My orders</Link>
+                            <NavLink to={'/login'} className={activeLink}>Login</NavLink>
+                            <NavLink to={'/registro'} className={activeLink}>Register</NavLink>
+                            <NavLink to={'/order-history'} className={activeLink}>My orders</NavLink>
                         </span>
                         
                         {cart}
