@@ -2,7 +2,6 @@ import React from 'react';
 import { AuthContainer } from './styles/AuthContainer';
 import { Card } from '../../components';
 import { Link } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 
 const Register = () => {
     return (
