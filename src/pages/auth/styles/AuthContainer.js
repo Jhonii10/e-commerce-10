@@ -23,6 +23,9 @@ export const AuthContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
 
   .container {
   max-width: 1000px;
@@ -92,7 +95,7 @@ export const AuthContainer = styled.section`
 
   }
   
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 450px) {
     .form {
         width: auto;
     }
