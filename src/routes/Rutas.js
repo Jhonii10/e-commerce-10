@@ -17,7 +17,7 @@ const Rutas = () => {
                     <Route path="/registro" element={<Register />} />
                     <Route path="/reset" element={<Reset />} />
                     <Route path='/cart' element={<Cart/>}/>
-                    <Route path='/orderhistory' element={<OrderHistory/>}/>
+                    <Route path='/order-history' element={<OrderHistory/>}/>
 
                 </Routes>
                 <Footer/>    
