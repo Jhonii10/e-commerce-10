@@ -26,13 +26,7 @@ export const AuthContainer = styled.section`
   max-width: 1000px;
   margin: 0 auto;
   padding: 24px;
-
-  .container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
+  gap:24px;
 
 
   .img {
