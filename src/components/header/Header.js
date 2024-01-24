@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
 import { FaCartShopping } from "react-icons/fa6";
 import { BiMenuAltRight } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Badge } from '@mui/material';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase/config';
+import { toast } from 'react-toastify';
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
@@ -42,6 +45,8 @@ const Header = () => {
 
     const [showMenu, setshowMenu] = useState(false);
 
+    const navigate = useNavigate();
+
     const toggleMenu = ()=>{
         setshowMenu(!showMenu)
     }
@@ -50,6 +55,16 @@ const Header = () => {
         setshowMenu(false)
     }
 
+    const logoutUser = ()=>{
+        signOut(auth).then(() => {
+            // Sign-out successful.
+              toast.success('Cerrando secion')
+              navigate('/');
+          }).catch((error) => {
+            // An error happened.
+              toast.error('ocurrio un problema')
+          });
+    }
 
     return (
         <HeaderContainer>
@@ -91,6 +106,8 @@ const Header = () => {
                             <NavLink to={'/login'} className={activeLink}>Login</NavLink>
                             <NavLink to={'/registro'} className={activeLink}>Register</NavLink>
                             <NavLink to={'/order-history'} className={activeLink}>My orders</NavLink>
+                            <Link  onClick={logoutUser} className={activeLink} >Logout</Link>
+                            
                         </span>
                         
                         {cart}
