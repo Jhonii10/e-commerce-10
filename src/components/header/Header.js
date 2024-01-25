@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { FaRegUser } from "react-icons/fa6"
 import { useDispatch } from 'react-redux';
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slice/authSlice';
+import { ShowOnLogIn, ShowOnLogout } from '../hiddenLink/HiddenLink';
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
@@ -134,13 +135,27 @@ const Header = () => {
                     
                     <div className='header-right' onClick={hideMenu}>
                         <span className='links'>
-                            <NavLink to={'/login'} className={activeLink}>Login</NavLink>
+                            <ShowOnLogout>
+                                <NavLink to={'/login'} className={activeLink}>
+                                    Login
+                                </NavLink>
+                            </ShowOnLogout>
+                            <ShowOnLogIn>
                             <Link to={'#home'}>
                                 <FaRegUser/>
                                 Hi, {displayName}
                             </Link>
-                            <NavLink to={'/order-history'} className={activeLink}>My orders</NavLink>
-                            <Link  onClick={logoutUser} className={activeLink} >Logout</Link>
+                            </ShowOnLogIn>
+                            <ShowOnLogIn>
+                                <NavLink to={'/order-history'} className={activeLink}>
+                                    My orders
+                                </NavLink>
+                            </ShowOnLogIn>
+                            <ShowOnLogIn>
+                            <Link  onClick={logoutUser} className={activeLink} >
+                                Logout
+                            </Link>
+                            </ShowOnLogIn>
                             
                         </span>
                         
