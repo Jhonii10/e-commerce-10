@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import HeaderContainer from './HeaderContainer';
 import { FaCartShopping } from "react-icons/fa6";
 import { BiMenuAltRight } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { Badge } from '@mui/material';
-import { signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
+import { FaRegUser } from "react-icons/fa6"
+import { useDispatch } from 'react-redux';
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slice/authSlice';
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
@@ -44,8 +47,36 @@ const cart = (
 const Header = () => {
 
     const [showMenu, setshowMenu] = useState(false);
-
+    const [displayName, setDisplayName] = useState('');
     const navigate = useNavigate();
+
+    
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+              const {displayName, email , uid} = user;
+
+              const setName = (name)=> name.split('@')[0].replace(/^\w/, c => c.toUpperCase());
+
+              setDisplayName(() => displayName ? setName(displayName) : setName(email))
+              
+              dispatch(SET_ACTIVE_USER({
+                email: email,
+                userName: displayName ? setName(displayName) : setName(email),
+                userID: uid
+              }))
+            } else {
+                dispatch(REMOVE_ACTIVE_USER()) 
+                setDisplayName('')
+                
+            }
+          });
+          
+        
+    }, [dispatch , displayName]);
 
     const toggleMenu = ()=>{
         setshowMenu(!showMenu)
@@ -104,7 +135,10 @@ const Header = () => {
                     <div className='header-right' onClick={hideMenu}>
                         <span className='links'>
                             <NavLink to={'/login'} className={activeLink}>Login</NavLink>
-                            <NavLink to={'/registro'} className={activeLink}>Register</NavLink>
+                            <Link to={'#home'}>
+                                <FaRegUser/>
+                                Hi, {displayName}
+                            </Link>
                             <NavLink to={'/order-history'} className={activeLink}>My orders</NavLink>
                             <Link  onClick={logoutUser} className={activeLink} >Logout</Link>
                             
