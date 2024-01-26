@@ -25,7 +25,7 @@ const Footer = () => {
 
     return (
         <FooterContainer>
-            <p> &copy; {year} All Rights Reserved </p>
+            <p> &copy; {year} Todos los derechos reservados</p>
         </FooterContainer>
     );
 }
