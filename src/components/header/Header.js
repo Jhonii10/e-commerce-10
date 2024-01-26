@@ -120,7 +120,7 @@ const Header = () => {
                                 to={'/'} 
                                 className={activeLink}
                                 >
-                             Home
+                             Inicio
                             </NavLink>
                         </li>
                         <li>
@@ -128,7 +128,7 @@ const Header = () => {
                                 to={'/contact'}
                                 className={activeLink}
                                 >
-                                Contact US
+                                Contactenos
                             </NavLink>
                         </li>
                     </ul>
@@ -137,7 +137,7 @@ const Header = () => {
                         <span className='links'>
                             <ShowOnLogout>
                                 <NavLink to={'/login'} className={activeLink}>
-                                    Login
+                                  Inicia sesión
                                 </NavLink>
                             </ShowOnLogout>
                             <ShowOnLogIn>
