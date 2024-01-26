@@ -12,6 +12,7 @@ import { FaRegUser } from "react-icons/fa6"
 import { useDispatch } from 'react-redux';
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slice/authSlice';
 import { ShowOnLogIn, ShowOnLogout } from '../hiddenLink/HiddenLink';
+import AdminOnlyRoute from '../adminOnlyRoute/AdminOnlyRoute';
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
@@ -116,6 +117,13 @@ const Header = () => {
                             <IoCloseCircleOutline size={22} color='#fff' onClick={hideMenu}/>
                         </li>
                         <li>
+                            <AdminOnlyRoute>
+                            <button className='btn btn-primary'>
+                                Administrador
+                            </button>
+                            </AdminOnlyRoute>
+                        </li>
+                        <li>
                             <NavLink   
                                 to={'/'} 
                                 className={activeLink}
@@ -143,17 +151,17 @@ const Header = () => {
                             <ShowOnLogIn>
                             <Link to={'#home'}>
                                 <FaRegUser/>
-                                Hi, {displayName}
+                                Hola, {displayName}
                             </Link>
                             </ShowOnLogIn>
                             <ShowOnLogIn>
                                 <NavLink to={'/order-history'} className={activeLink}>
-                                    My orders
+                                    Mis Pedidos
                                 </NavLink>
                             </ShowOnLogIn>
                             <ShowOnLogIn>
                             <Link  onClick={logoutUser} className={activeLink} >
-                                Logout
+                                Cerrar sesión
                             </Link>
                             </ShowOnLogIn>
                             

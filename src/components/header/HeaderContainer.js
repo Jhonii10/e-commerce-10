@@ -216,7 +216,29 @@ const HeaderContainer = styled.header`
         margin-left: 2rem;
       }
     }
+
+    
+
   }
+
+  .btn {
+        font-size: 1rem;
+        font-weight: 400;
+        padding: 6px 8px;
+        margin: 0 5px 0 0;
+        border: 1px solid transparent;
+        border-radius: 3px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background: #007bff;
+        }
 `;
 
 export default HeaderContainer;
