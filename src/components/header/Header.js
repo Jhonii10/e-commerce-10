@@ -118,7 +118,11 @@ const Header = () => {
                         </li>
                         <li>
                             <AdminOnlyRoute>
-                            <button className='btn btn-primary'>
+                            <button 
+                                className='btn btn-primary'
+                                onClick={()=>navigate('/admin')}
+                                
+                                >
                                 Administrador
                             </button>
                             </AdminOnlyRoute>
