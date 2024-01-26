@@ -15,7 +15,7 @@ const AdminContainer = styled.div`
     }
 
     .content {
-        width: 75%;
+        width: 80%;
         padding: 1rem;
     }
 
