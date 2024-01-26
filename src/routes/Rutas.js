@@ -5,6 +5,7 @@ import { Admin, Cart, Contact, Home, OrderHistory } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminOnlyRoute from '../components/adminOnlyRoute/AdminOnlyRoute';
 
 const Rutas = () => {
     return (
@@ -16,12 +17,21 @@ const Rutas = () => {
                 <Routes>
                     <Route path='/' element={<Home/>}/>
                     <Route path='/contact' element={<Contact/>}/>
-                    <Route path='/admin' element={<Admin/>}/>
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<Register />} />
                     <Route path="/reset" element={<Reset />} />
                     <Route path='/cart' element={<Cart/>}/>
                     <Route path='/order-history' element={<OrderHistory/>}/>
+
+                    <Route 
+                        path='/admin/*' 
+                        element={
+                            <AdminOnlyRoute>    
+                                <Admin/>
+                            </AdminOnlyRoute>
+                        }
+                        
+                    />
 
                 </Routes>
                 <Footer/>    
