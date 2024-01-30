@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Footer, Header } from '../components';
 import { Admin, Cart, Contact, Home, OrderHistory } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
@@ -41,7 +41,7 @@ const Rutas = () => {
                     />
                     }
 
-                    <Route path='*' element={<Navigate to='/'/>}/>
+                    {/* <Route path='/*' element={<Navigate to='/'/>}/> */}
 
                 </Routes>
                 <Footer/>    

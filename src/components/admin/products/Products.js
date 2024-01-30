@@ -1,12 +1,13 @@
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { db } from '../../../firebase/config';
+import { db, storage } from '../../../firebase/config';
 import ProductsContainer from './ProductsContainer';
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import Loader from '../../loader/Loader';
+import { deleteObject, ref } from 'firebase/storage';
 
 const Products = () => {
 
@@ -41,6 +42,22 @@ const Products = () => {
      useEffect(() => {
         getProducts()
      }, []);
+
+    const deleteProduct = async(id , imageUrl)=>{
+        try {
+            await deleteDoc(doc(db, "products", id));
+
+            const desertRef = ref(storage, imageUrl);
+
+            // Delete the file
+            await deleteObject(desertRef)
+
+            toast.success('Producto Eliminado exitosamente')
+            
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
     return (
         <>
         {
@@ -92,7 +109,11 @@ const Products = () => {
                                             <FaRegEdit size={20} color='green'/>
                                         </Link>
                                         &nbsp;
-                                        <MdDelete size={20} color='red'/>
+                                        <MdDelete 
+                                            size={20} 
+                                            color='red'
+                                            onClick={()=>deleteProduct(id , imageUrl)}    
+                                            />
                                        </td>
                                     </tr>
                                     
