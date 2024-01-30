@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import Loader from '../../loader/Loader';
 import { deleteObject, ref } from 'firebase/storage';
+import Notiflix from 'notiflix';
 
 const Products = () => {
 
@@ -42,6 +43,29 @@ const Products = () => {
      useEffect(() => {
         getProducts()
      }, []);
+
+    const confirmDelete = (id, imageUrl)=>{
+        Notiflix.Confirm.show(
+            'Eliminar Producto',
+            '¿Estas seguro que quieres eliminar este producto?',
+            'Eliminar',
+            'Cancelar',
+            function okCb() {
+                deleteProduct(id, imageUrl)
+            },
+            function cancelCb() {
+              return
+            },
+            {
+              width: '320px',
+              borderRadius: '8px',
+              titleColor:'black',
+              okButtonBackground:'black',
+              cssAnimationStyle:'zoom',
+
+            },
+          );
+    }
 
     const deleteProduct = async(id , imageUrl)=>{
         try {
@@ -112,7 +136,7 @@ const Products = () => {
                                         <MdDelete 
                                             size={20} 
                                             color='red'
-                                            onClick={()=>deleteProduct(id , imageUrl)}    
+                                            onClick={()=>confirmDelete(id, imageUrl)}    
                                             />
                                        </td>
                                     </tr>
