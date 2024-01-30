@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { AddProductContainer } from './AddProductContainer';
 import Card from '../../card/Card';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../../../firebase/config';
+import { toast } from 'react-toastify';
 
 
 const categories = [
@@ -27,12 +30,14 @@ const AddProducts = () => {
     const [products, setProducts] = useState({
         name:'',
         imageUrl:'',
-        price:'',
+        price:0,
         category:'',
         brand:'',
         desc:'',
 
     });
+
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const handleInputChange = (event)=>{
         const {name , value } = event.target;
@@ -44,14 +49,37 @@ const AddProducts = () => {
     }
 
     const handleImageChange = (event)=>{
-        console.log(event);
+
+        const file = event.target.files[0];
+        const storageRef = ref(storage, `eShop/${Date.now()}${file.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        uploadTask.on('state_changed', 
+        (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress)
+        }, 
+        (error) => {
+            toast.error(error.message)
+        }, 
+        () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setProducts({...products, imageUrl:downloadURL});
+            toast.success('Imagen cargada exitosamente.');
+            });
+        }
+        );
+        }   
+
+    const handleAddProduct = (event)=>{
+        event.preventDefault();
+        console.log(products);
     }
 
     return (
         <AddProductContainer>
             <h1>Agregar Nuevo producto</h1>
             <Card cardClass={'card'}>
-                <form>
+                <form onSubmit={handleAddProduct}>
                     <label>Nombre Del Producto</label>
                     <input 
                         type='text' 
@@ -63,11 +91,23 @@ const AddProducts = () => {
                     />
                     <label>Imagen del producto</label>
                     <Card cardClass={'group'}>
-                     <div className='progress'>
-                       <div className='progress-bar' >
-                          Subiendo
-                       </div>
-                     </div>
+                    
+                    {
+                        uploadProgress === 0 ? null : (
+                            <div className='progress'>
+                                <div 
+                                    className='progress-bar' 
+                                    style={{width:`${uploadProgress}%`}}
+                                    >
+                                    {
+                                        uploadProgress < 100 ? `Cargando ${uploadProgress}`
+                                        :`Carga completa ${uploadProgress}%`
+                                    }
+                                </div>
+                            </div>
+
+                        )
+                    }
                     <input 
                         type='file'
                         accept='image/*'
@@ -75,13 +115,19 @@ const AddProducts = () => {
                         name='image'
                         onChange={(e)=>handleImageChange(e)}
                     />
-                    <input
-                        type='text'
-                        required
-                        name='imageUrl'
-                        disabled
-                        value={products.imageUrl}
-                    />
+                    {
+                        products.imageUrl === '' ? null :(
+                            <input
+                                type='text'
+                                // required
+                                placeholder='Url de la imagen'
+                                name='imageUrl'
+                                disabled
+                                value={products.imageUrl}
+                            />
+                        )
+                    }
+                    
                     </Card>
                     <label>Precio Del Producto</label>
                     <input 

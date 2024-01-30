@@ -37,7 +37,7 @@ import styled from 'styled-components';
       border: 1px solid transparent;
       border-radius: 10px;
       .progress-bar {
-        background-color: var(--light-blue);
+        background-color: black;
         border: 1px solid transparent;
         border-radius: 10px;
         color: #fff;
