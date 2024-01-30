@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { AddProductContainer } from './AddProductContainer';
 import Card from '../../card/Card';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../../../firebase/config';
+import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import Loader from '../../loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 
 const categories = [
@@ -25,19 +28,23 @@ const categories = [
     }
 ]
 
-const AddProducts = () => {
-
-    const [products, setProducts] = useState({
+const initialState = {
         name:'',
         imageUrl:'',
         price:0,
         category:'',
         brand:'',
         desc:'',
+}
 
-    });
+const AddProducts = () => {
+
+    const [products, setProducts] = useState(initialState);
 
     const [uploadProgress, setUploadProgress] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const navigate =  useNavigate();
 
     const handleInputChange = (event)=>{
         const {name , value } = event.target;
@@ -70,12 +77,41 @@ const AddProducts = () => {
         );
         }   
 
-    const handleAddProduct = (event)=>{
+    const handleAddProduct = async (event)=>{
         event.preventDefault();
-        console.log(products);
+
+        setIsLoading(true)
+
+        try {
+            await addDoc(collection(db, "products"), {
+                name: products.name,
+                imageUrl:products.imageUrl,
+                price:Number(products.price),
+                category:products.category,
+                brand:products.brand,
+                desc:products.desc,
+                createdAt: Timestamp.now().toDate()
+
+              });
+              setIsLoading(false)
+              toast.success('Producto subido exitosamente')
+              setUploadProgress(0)
+              setProducts(initialState)
+              navigate('/admin/products')
+            
+        } catch (error) {
+              setIsLoading(false)
+              toast.error(error.message)
+        }
+
+        
     }
 
     return (
+        <>
+        {
+            isLoading && <Loader/>
+        }
         <AddProductContainer>
             <h1>Agregar Nuevo producto</h1>
             <Card cardClass={'card'}>
@@ -187,6 +223,7 @@ const AddProducts = () => {
 
             </Card>
         </AddProductContainer>
+        </>
     );
 }
 
