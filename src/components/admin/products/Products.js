@@ -9,11 +9,15 @@ import { Link } from 'react-router-dom';
 import Loader from '../../loader/Loader';
 import { deleteObject, ref } from 'firebase/storage';
 import Notiflix from 'notiflix';
+import { useDispatch } from 'react-redux';
+import { STORE_PRODUCTS } from '../../../redux/slice/productSlice';
 
 const Products = () => {
 
      const [products, setProducts] = useState([]);
      const [isLoading, setIsLoading] = useState(false);
+
+     const dispatch = useDispatch();
 
      const getProducts = () => {
            setIsLoading(true)
@@ -26,12 +30,14 @@ const Products = () => {
                const allProducts = Snapshot.docs.map((doc)=> {
                 return {
                     id: doc.id,
-                    ...doc.data()
+                    ...doc.data(), 
                 }
                 
                })
                setProducts(allProducts) 
-               setIsLoading(false)  
+               setIsLoading(false)
+               dispatch(STORE_PRODUCTS({products: allProducts}))
+
             });
 
            } catch (error) {
@@ -42,6 +48,7 @@ const Products = () => {
 
      useEffect(() => {
         getProducts()
+     // eslint-disable-next-line react-hooks/exhaustive-deps
      }, []);
 
     const confirmDelete = (id, imageUrl)=>{
@@ -97,12 +104,12 @@ const Products = () => {
                     <table>
                         <thead>
                         <tr>
-                            <th>S/N</th>
+                            <th>Ítem</th>
                             <th>Imagen</th>
                             <th>Nombre</th>
                             <th>Categoria</th>
                             <th>Precio</th>
-                            <th>opciones</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -116,8 +123,8 @@ const Products = () => {
                                       <td>
                                         {index + 1}
                                       </td>
-                                       <td>
-                                        <img src={imageUrl} alt={name} style={{width:'100px' , height:'80px', objectFit:'cover'}}/>
+                                       <td className='table-image'>
+                                        <img src={imageUrl} alt={name}/>
                                        </td>
                                        <td>
                                         {name}
@@ -129,7 +136,7 @@ const Products = () => {
                                         {`$${price}`}
                                        </td>
                                        <td>
-                                        <Link to={'/admin/add-products'}>
+                                        <Link to={`/admin/add-products/${id}`}>
                                             <FaRegEdit size={20} color='green'/>
                                         </Link>
                                         &nbsp;

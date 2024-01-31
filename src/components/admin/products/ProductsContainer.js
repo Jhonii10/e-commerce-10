@@ -14,11 +14,11 @@ const ProductsContainer = styled.div`
   table {
     border-collapse: collapse;
     width: 100%;
-    font-size: 1.4rem;
+    font-size: 1rem;
 
     thead {
-      border-top: 2px solid var(--light-blue);
-      border-bottom: 2px solid var(--light-blue);
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
     }
 
     th {
@@ -27,9 +27,10 @@ const ProductsContainer = styled.div`
 
     th,
     td {
-      vertical-align: top;
-      text-align: left;
+      vertical-align: center;
+      text-align: center;
       padding: 8px;
+      
       &.icons {
         > * {
           margin-right: 5px;
@@ -38,8 +39,20 @@ const ProductsContainer = styled.div`
       }
     }
 
+    .table-image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 74px;
+            height: 74px;
+            object-fit: cover;
+            border-radius: 12px;
+        }  
+    }
+
     tr {
-      border-bottom: 1px solid #ccc;
+        border-bottom: 1px dashed rgba(145, 158, 171, 0.2);
     }
 
     tr:nth-child(even) {
