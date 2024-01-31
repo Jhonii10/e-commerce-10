@@ -79,7 +79,7 @@ const Sidebar = () => {
                     
                 </li>
                 <li>
-                <NavLink to={'/admin/add-products'}>
+                <NavLink to={'/admin/add-products/add'}>
                     Agregar productos
                 </NavLink>
                     

@@ -32,7 +32,7 @@ const Admin = () => {
             <div className='content'>
                 <Routes>
                     <Route path='home' element={<Home/>}/>
-                    <Route path='add-products' element={<AddProducts/>}/>
+                    <Route path='add-products/:id' element={<AddProducts/>}/>
                     <Route path='products' element={<Products/>}/>
                     <Route path='orders' element={<Orders/>}/>
                     <Route path='*' element={<Navigate to={'home'}/>}/>
