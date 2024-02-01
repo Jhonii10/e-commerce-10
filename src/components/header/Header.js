@@ -164,7 +164,7 @@ const Header = () => {
                                 </NavLink>
                             </ShowOnLogIn>
                             <ShowOnLogIn>
-                            <Link  onClick={logoutUser} className={activeLink} >
+                            <Link  onClick={logoutUser}  >
                                 Cerrar sesión
                             </Link>
                             </ShowOnLogIn>
