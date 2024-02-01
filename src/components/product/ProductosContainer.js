@@ -6,9 +6,9 @@ export const ProductosContainer = styled.section`
   padding: 4rem 0;
 
 .container {
-  max-width: 1000px;
+  max-width: 1024px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 12px;
 }
 
 .product {
@@ -17,7 +17,6 @@ export const ProductosContainer = styled.section`
 
   .filter {
     width: 20%;
-    // border: 2px solid var(--dark-blue);
     transition: all 0.3s;
   }
 
@@ -43,7 +42,7 @@ export const ProductosContainer = styled.section`
     .filter {
       width: 50%;
       background-color: #fff;
-      border: 2px solid var(--dark-blue);
+      border: 1px solid black;
       position: absolute;
       left: -200%;
       height: 100%;

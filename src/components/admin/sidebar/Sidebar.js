@@ -73,19 +73,19 @@ const Sidebar = () => {
                     </NavLink>
                 </li>
                 <li>
-                <NavLink to={'/admin/products'}>
+                <NavLink to={'/admin/products'} className={activeLink}>
                     Productos
                 </NavLink>
                     
                 </li>
                 <li>
-                <NavLink to={'/admin/add-products/add'}>
+                <NavLink to={'/admin/add-products/add'} className={activeLink}>
                     Agregar productos
                 </NavLink>
                     
                 </li>
                 <li>
-                <NavLink to={'/admin/orders'}>
+                <NavLink to={'/admin/orders'} className={activeLink}>
                     Pedidos
                 </NavLink>
                 </li>

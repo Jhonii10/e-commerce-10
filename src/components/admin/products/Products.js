@@ -1,5 +1,5 @@
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { deleteDoc, doc } from 'firebase/firestore';
+import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { db, storage } from '../../../firebase/config';
 import ProductsContainer from './ProductsContainer';
@@ -9,48 +9,22 @@ import { Link } from 'react-router-dom';
 import Loader from '../../loader/Loader';
 import { deleteObject, ref } from 'firebase/storage';
 import Notiflix from 'notiflix';
-import { useDispatch } from 'react-redux';
+import { UseFetchCollection } from '../../../hooks/useFetchCollection';
+import { useDispatch, useSelector } from 'react-redux';
 import { STORE_PRODUCTS } from '../../../redux/slice/productSlice';
 
 const Products = () => {
 
-     const [products, setProducts] = useState([]);
-     const [isLoading, setIsLoading] = useState(false);
+    const {isLoading,data} = UseFetchCollection('products')
+    
+    const {products} = useSelector((state)=>state.product)
+    
+    const dispatch = useDispatch();
 
-     const dispatch = useDispatch();
-
-     const getProducts = () => {
-           setIsLoading(true)
-
-           try {
-            const productsRef = collection(db, "products");
-            const q = query(productsRef, orderBy("createdAt", "desc"),);
-            
-            onSnapshot(q, (Snapshot) => {
-               const allProducts = Snapshot.docs.map((doc)=> {
-                return {
-                    id: doc.id,
-                    ...doc.data(), 
-                }
-                
-               })
-               setProducts(allProducts) 
-               setIsLoading(false)
-               dispatch(STORE_PRODUCTS({products: allProducts}))
-
-            });
-
-           } catch (error) {
-             setIsLoading(false)
-             toast.error(error.message)
-           }
-     }
-
-     useEffect(() => {
-        getProducts()
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-     }, []);
-
+    useEffect(() => {
+        dispatch(STORE_PRODUCTS({products: data}))
+    }, [data, dispatch]);
+    
     const confirmDelete = (id, imageUrl)=>{
         Notiflix.Confirm.show(
             'Eliminar Producto',
@@ -80,7 +54,6 @@ const Products = () => {
 
             const desertRef = ref(storage, imageUrl);
 
-            // Delete the file
             await deleteObject(desertRef)
 
             toast.success('Producto Eliminado exitosamente')
