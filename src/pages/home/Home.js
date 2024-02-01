@@ -1,11 +1,12 @@
 import React from 'react';
 import { Slider } from '../../components';
+import Product from '../../components/product/Product';
 
 const Home = () => {
     return (
         <div>
-            <Slider/>
-            <h1>Pagina de Inicio</h1>
+            {/* <Slider/> */}
+            <Product/>
         </div>
     );
 }
