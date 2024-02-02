@@ -10,7 +10,7 @@ export const ProductListContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     .icons {
       display: flex;
       justify-content: center;
@@ -37,6 +37,21 @@ export const ProductListContainer = styled.div`
     }
   }
 
+  .grid {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -0.5rem;
+    justify-content: center;
+    margin-top: 1rem
+    }
+
+    .gcol{
+        flex-basis: 30%;
+        max-width: 30%;
+        margin-bottom: 10px; 
+    }
+
+
   @media screen and (max-width: 800px) {
     .top {
       flex-direction: column;
@@ -46,17 +61,40 @@ export const ProductListContainer = styled.div`
     .search {
       width: 100%;
     }
+
+    .grid {
+    flex-flow: row wrap;
+    margin: 0 -0.5rem;
+    justify-content: center;
+    margin-top: 1rem
+    }
+
+    .gcol{
+        flex-basis: 30%;
+        max-width: 30%;
+        margin-bottom: 10px; 
+    }
+
+    @media screen and (max-width: 768px) {
+    .gcol {
+            flex-basis: 48%; 
+            max-width: 48%;
+        }
+    }
+
+    @media screen and (max-width: 380px) {
+    .gcol {
+        flex-basis: 100%; 
+        max-width: 100%;
+    }}
+
+    
+
   }
 
 
-    .grid {
-    display: flex;
-    justify-content: space-around;
+    
 
-    flex-wrap: wrap;
-    // padding: 1rem 0;
-    background-color: #fffdf7;
-    }
 
 
 `;

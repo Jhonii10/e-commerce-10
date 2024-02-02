@@ -20,6 +20,7 @@ const Product = () => {
     }, [data, dispatch]);
 
     return (
+        
         <ProductosContainer>
             <div className={`container product`}>
              <aside className='filter'>
