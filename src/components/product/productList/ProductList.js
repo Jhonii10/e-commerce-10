@@ -3,6 +3,7 @@ import { ProductListContainer } from './ProductListContainer';
 import { IoGrid } from "react-icons/io5";
 import { FaThList } from "react-icons/fa";
 import Search from '../../search/Search';
+import ProductItem from '../productItem/ProductItem';
 
 const ProductList = ({products}) => {
     
@@ -22,7 +23,7 @@ const ProductList = ({products}) => {
                     <FaThList
                         size={22} 
                         color='black'
-                        onClick={()=>setGrid(true)}    
+                        onClick={()=>setGrid(false)}    
                     />
 
                     <p>
@@ -55,7 +56,23 @@ const ProductList = ({products}) => {
             </div>
 
             <div className={grid ?'grid':'list'}>
-                 carts
+                 {
+                    products.leght === 0 
+                    ?(
+                        <h3>Productos No encontrados</h3>
+                     )
+                    :(
+                        <>
+                            {
+                                products.map((product)=>(
+                                    <div key={product.id} className={grid ?'gcol':''}>
+                                        <ProductItem product={product} grid={grid}/>
+                                    </div>
+                                ))
+                            }
+                        </>
+                    )
+                 }
             </div>
 
         </ProductListContainer>
