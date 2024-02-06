@@ -5,6 +5,7 @@ import ProductList from './productList/ProductList';
 import { UseFetchCollection } from '../../hooks/useFetchCollection';
 import { useDispatch, useSelector } from 'react-redux';
 import { STORE_PRODUCTS } from '../../redux/slice/productSlice';
+import Loading from '../loader/Loading';
 
 const Product = () => {
 
@@ -27,7 +28,11 @@ const Product = () => {
                  <ProductsFilter/>
              </aside>
              <div className='content'>
-                <ProductList products={products}/>
+             {
+                
+                isLoading ? <Loading/> : <ProductList products={products}/> 
+             } 
+                
              </div>
             </div>
         </ProductosContainer>

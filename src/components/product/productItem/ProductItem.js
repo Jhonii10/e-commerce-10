@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ProductsItemContainer } from './ProductsItemContainer';
 
 const ProductItem = ({product}) => {
-    const {id, desc,imageUrl,name,price} = product;
+    const {id,imageUrl,name,price} = product;
  
 
     const shortenText = (text, n)=>{
