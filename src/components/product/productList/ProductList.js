@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { ProductListContainer } from './ProductListContainer';
 import { BsGrid3X3GapFill } from "react-icons/bs";
-import { IoGrid } from "react-icons/io5";
-import { FaThList } from "react-icons/fa";
 import Search from '../../search/Search';
 import ProductItem from '../productItem/ProductItem';
 
 const ProductList = ({products}) => {
     
-    const [grid, setGrid] = useState(true);
     const [search, setSearch] = useState('');
     console.log(search);
 
