@@ -17,7 +17,7 @@ export const ProductListContainer = styled.div`
       align-items: center;
       & > * {
         margin-right: 7px;
-        cursor: pointer;
+        cursor: auto;
       }
     }
 

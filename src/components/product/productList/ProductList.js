@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ProductListContainer } from './ProductListContainer';
+import { BsGrid3X3GapFill } from "react-icons/bs";
 import { IoGrid } from "react-icons/io5";
 import { FaThList } from "react-icons/fa";
 import Search from '../../search/Search';
@@ -15,17 +16,10 @@ const ProductList = ({products}) => {
         <ProductListContainer id='product'>
             <div className='top' >
                 <div className='icons'>
-                    <IoGrid 
+                    <BsGrid3X3GapFill 
                         size={22} 
-                        color='red'
-                        onClick={()=>setGrid(true)}    
+                        color='black'    
                     />
-                    <FaThList
-                        size={22} 
-                        color='black'
-                        onClick={()=>setGrid(false)}    
-                    />
-
                     <p>
                         <b>10</b> Productos encontrados
                     </p>
@@ -55,7 +49,7 @@ const ProductList = ({products}) => {
                 </div>
             </div>
 
-            <div className={grid ?'grid':'list'}>
+            <div className={'grid'}>
                  {
                     products.leght === 0 
                     ?(
@@ -65,8 +59,8 @@ const ProductList = ({products}) => {
                         <>
                             {
                                 products.map((product)=>(
-                                    <div key={product.id} className={grid ?'gcol':''}>
-                                        <ProductItem product={product} grid={grid}/>
+                                    <div key={product.id} className={'gcol'}>
+                                        <ProductItem product={product} />
                                     </div>
                                 ))
                             }

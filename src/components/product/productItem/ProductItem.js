@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProductsItemContainer } from './ProductsItemContainer';
 
-const ProductItem = ({product , grid}) => {
+const ProductItem = ({product}) => {
     const {id, desc,imageUrl,name,price} = product;
  
 
@@ -12,7 +12,7 @@ const ProductItem = ({product , grid}) => {
 
     return (
 
-        <ProductsItemContainer key={id} className={grid ? 'grid-item':'list'} >
+        <ProductsItemContainer key={id} className={'grid-item'} >
             <div className='image'>
             <Link to={`/product-details`} >
             <div className='img'>  
@@ -27,12 +27,7 @@ const ProductItem = ({product , grid}) => {
                     <p>${price}</p>
                     
                 </div>
-                {
-                !grid && 
-                <p className='desc'>
-                    {shortenText(desc , 180)}
-                </p>
-            }
+                
             <div className='item-action'>
                 <button>
                    <span> Agregar Al Carro</span>
