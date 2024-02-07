@@ -114,6 +114,7 @@ export const ProductsItemContainer = styled.div`
                 padding: 10px 30px;
                 font-size: 14px;
                 font-weight: 600;
+                font-family: 'Quicksand';
                 display: block;
                 border-radius: 5px !important;
                 padding: 10px 15px;

@@ -14,7 +14,7 @@ const ProductItem = ({product}) => {
 
         <ProductsItemContainer key={id} className={'grid-item'} >
             <div className='image'>
-            <Link to={`/product-details`} >
+            <Link to={`/product-details/${id}`} >
             <div className='img'>  
                  <img src={imageUrl} alt={name}/>
             </div>
