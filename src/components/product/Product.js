@@ -23,7 +23,7 @@ const Product = () => {
     return (
         
         <ProductosContainer>
-            <div className={`container product`}>
+            <div  className={`container product`}>
              <aside className='filter'>
                  <ProductsFilter/>
              </aside>

@@ -1,6 +1,6 @@
 import { doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../../../firebase/config';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -212,7 +212,7 @@ import Loading from '../../loader/Loading';
     }
     @media screen and (min-width: 1114px) {
         .container {
-        max-width:  1256px ;
+        max-width:  1114px ;
     }
     }
 
@@ -227,6 +227,7 @@ const ProductsDetails = () => {
     const [product, setProduct] = useState(null);
 
 
+    const navigate = useNavigate();
     const getProduct = async ()=>{
 
         const docRef = doc(db, "products", id);
@@ -250,7 +251,9 @@ const ProductsDetails = () => {
     }, [id]);
 
 
-    
+    const handleBack = ()=>{
+        navigate('/#productos')
+    }
 
 
     return (
@@ -258,7 +261,9 @@ const ProductsDetails = () => {
             <div className='container product'>
                 <h2>Detalles Del Producto</h2>
                 <div>
-                <Link>&larr; Atras</Link>
+                <div onClick={handleBack} style={{marginBottom:'1rem', cursor:'pointer'}}>
+                    &larr; Regresar
+                </div>
                 </div>
                 {
                     product === null 
