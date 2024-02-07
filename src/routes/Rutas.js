@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminOnlyRoute from '../components/adminOnlyRoute/AdminOnlyRoute';
 import { useSelector } from 'react-redux';
+import ProductsDetails from '../components/product/productDetails/ProductsDetails';
 
 const Rutas = () => {
 
@@ -42,6 +43,8 @@ const Rutas = () => {
                     }
 
                     {/* <Route path='/*' element={<Navigate to='/'/>}/> */}
+
+                    <Route path='/product-details/:id' element={<ProductsDetails/>}/>
 
                 </Routes>
                 <Footer/>    
