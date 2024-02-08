@@ -4,11 +4,13 @@ import { BsGrid3X3GapFill } from "react-icons/bs";
 import Search from '../../search/Search';
 import ProductItem from '../productItem/ProductItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { FILTER_BY_SEARCH } from '../../../redux/slice/filterSlice';
+import { FILTER_BY_SEARCH, SORT_PRODUCTS } from '../../../redux/slice/filterSlice';
 
 const ProductList = ({products}) => {
     
     const [search, setSearch] = useState('');
+    const [sort, setSort] = useState('Newest');
+
     const dispatch = useDispatch();
     const {filteredProducts} = useSelector((state)=>state.filter);
     
@@ -16,6 +18,12 @@ const ProductList = ({products}) => {
     useEffect(() => {
         dispatch(FILTER_BY_SEARCH({products, search}))
     }, [dispatch, products, search]);
+
+    useEffect(() => {
+        dispatch(SORT_PRODUCTS({products ,sort}))
+    }, [dispatch, products, sort]);
+
+
 
     return (
         <ProductListContainer id='product'>
@@ -38,12 +46,12 @@ const ProductList = ({products}) => {
                 {/* Sort products */}
                 <div className='sort'>
                    <label>Ordenar por:</label>
-                   <select >
+                   <select value={sort} onChange={(e)=>setSort(e.target.value)}>
                         <option value='Newest'>El más nuevo
                         </option>
-                        <option value='lowet-price'>Precio: alto-bajo
+                        <option value='High-Low'>Precio: alto-bajo
                         </option>
-                        <option value='highet-price'>Precio: Bajo-Alto
+                        <option value='Low-High'>Precio: Bajo-Alto
                         </option>
                         <option value='A-Z'> A-Z
                         </option>
