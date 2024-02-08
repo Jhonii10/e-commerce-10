@@ -21,8 +21,8 @@ export const filterSlice = createSlice({
             case 'Newest':
               tempProducts = products;
               break;
-              case 'High-Low':
-                tempProducts = [...products].sort((a, b) => b.price - a.price);
+            case 'High-Low':
+              tempProducts = [...products].sort((a, b) => b.price - a.price);
                 break;
             case 'Low-High':
               tempProducts = [...products].sort((a, b) =>  a.price - b.price);
@@ -39,9 +39,41 @@ export const filterSlice = createSlice({
           }
 
         state.filteredProducts = tempProducts;
-   }
+   },
+
+   FILTER_BY_CATEGORY:(state , {payload})=>{
+    const {products , category} = payload;
+    let tempProducts = [];
+
+    if (category === 'Todas') {
+        tempProducts = products;
+    } else {
+        tempProducts = products.filter(product => product.category === category);
+    }
+    
+      state.filteredProducts = tempProducts;
+    
+    
+},
+
+   FILTER_BY_BRAND:(state , {payload})=>{
+    const {products , brand} = payload;
+    let tempProducts = [];
+
+    if (brand === 'Todas') {
+        tempProducts = products;
+    } else {
+        tempProducts = products.filter(product => product.brand === brand);
+    }
+    
+      state.filteredProducts = tempProducts;
+    
+    
+},
+
+
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { FILTER_BY_SEARCH,SORT_PRODUCTS } = filterSlice.actions
+export const { FILTER_BY_SEARCH, SORT_PRODUCTS , FILTER_BY_CATEGORY, FILTER_BY_BRAND } = filterSlice.actions
