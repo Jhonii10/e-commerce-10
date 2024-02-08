@@ -1,5 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { FILTER_BY_BRAND, FILTER_BY_CATEGORY } from '../../../redux/slice/filterSlice';
+
+
+const ProductsFilter = () => {
+
+   const dispatch = useDispatch();
+   const {products} = useSelector(state => state.product);
+   const [category, setCategory] = useState('Todas');
+   const [brand, setBrand] = useState('Todas');
+
+   const allCategory = [
+    'Todas',
+    ...new Set(products.map((product)=>product.category))
+   ]
+
+   const allBrand = [
+    'Todas',
+    ...new Set(products.map((product)=>product.brand))
+   ]
+
+   useEffect(() => {
+        dispatch(FILTER_BY_BRAND({products , brand}))
+   }, [dispatch, brand, products]);
+
+   
+   
+   const filterProducts = (cat)=>{
+        setCategory(cat)
+        dispatch(FILTER_BY_CATEGORY({products , category: cat}))
+   }
+
+
+    return (
+        <ProductsFilterContainer>
+            <h2>Categorias</h2>
+            <div className='category'>
+                {
+                    allCategory.map((cat, index) => (
+                        <button
+                        key={index}
+                        type="button"
+                        className={category === cat ? 'active' : null}
+                        onClick={()=>filterProducts(cat)}
+                        >
+                        {cat}
+                        </button>
+                    ))
+                }
+                
+            </div>
+            <h4>Marca</h4>
+            <div className='brand'>
+                <select value={brand} onChange={(event)=>setBrand(event.target.value)}>
+                    {
+                        allBrand.map((brand , index)=>(
+                            <>
+                                <option key={`${index}-filter`} value={brand}>{brand}</option>
+                            </>
+                        ))
+                    }
+                </select>
+            </div>
+            <h4>Precio</h4>
+            <p>1500</p>
+            <div className='price'>
+                <input type='range' name='price' min={100} max={1000}/>
+            </div>
+            <br/>
+            <button className='btn'>
+                <span> Limpiar Filtros </span>
+            </button>
+
+
+        </ProductsFilterContainer>
+    );
+}
+
+export default ProductsFilter;
 
 
 const ProductsFilterContainer = styled.div`
@@ -85,33 +164,3 @@ const ProductsFilterContainer = styled.div`
 }
 
 `;
-
-const ProductsFilter = () => {
-    return (
-        <ProductsFilterContainer>
-            <h2>Categorias</h2>
-            <div className='category'>
-                <button className=''>Todas</button>
-            </div>
-            <h4>Marca</h4>
-            <div className='brand'>
-                <select name='brand'>
-                    <option value="all">Todas</option>
-                </select>
-            </div>
-            <h4>Precio</h4>
-            <p>1500</p>
-            <div className='price'>
-                <input type='range' name='price' min={100} max={1000}/>
-            </div>
-            <br/>
-            <button className='btn'>
-                <span> Limpiar Filtros </span>
-            </button>
-
-
-        </ProductsFilterContainer>
-    );
-}
-
-export default ProductsFilter;
