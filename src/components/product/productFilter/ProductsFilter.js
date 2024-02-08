@@ -45,7 +45,7 @@ const ProductsFilterContainer = styled.div`
   bottom: 0;
   width: 2px;
   height: 100%;
-  background-color: var(--color-danger);
+  background-color: black;
 }
 
 .btn {
@@ -72,7 +72,7 @@ const ProductsFilterContainer = styled.div`
 }
 
 @media screen and (max-width: 700px) {
-  .filter {
+  
     .category button {
       width: 100%;
     }
@@ -81,7 +81,7 @@ const ProductsFilterContainer = styled.div`
         width: 100%;
       }
     }
-  }
+
 }
 
 `;
