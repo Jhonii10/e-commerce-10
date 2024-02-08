@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ProductListContainer } from './ProductListContainer';
 import { BsGrid3X3GapFill } from "react-icons/bs";
 import Search from '../../search/Search';
 import ProductItem from '../productItem/ProductItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { FILTER_BY_SEARCH } from '../../../redux/slice/filterSlice';
 
 const ProductList = ({products}) => {
     
     const [search, setSearch] = useState('');
-    console.log(search);
+    const dispatch = useDispatch();
+    const {filteredProducts} = useSelector((state)=>state.filter);
+    
+
+    useEffect(() => {
+        dispatch(FILTER_BY_SEARCH({products, search}))
+    }, [dispatch, products, search]);
 
     return (
         <ProductListContainer id='product'>
@@ -18,7 +26,7 @@ const ProductList = ({products}) => {
                         color='black'    
                     />
                     <p>
-                        <b>10</b> Productos encontrados
+                        <b>{filteredProducts.length}</b> Productos encontrados
                     </p>
 
                 </div>
@@ -48,14 +56,14 @@ const ProductList = ({products}) => {
 
             <div className={'grid'}>
                  {
-                    products.leght === 0 
+                    filteredProducts.length === 0 
                     ?(
-                        <h3>Productos No encontrados</h3>
+                        <h3>Ningun producto encontrado</h3>
                      )
                     :(
                         <>
                             {
-                                products.map((product)=>(
+                                filteredProducts.map((product)=>(
                                     <div key={product.id} className={'gcol'}>
                                         <ProductItem product={product} />
                                     </div>

@@ -12,7 +12,6 @@ const Product = () => {
     const {isLoading,data} = UseFetchCollection('products')
     
     const {products} = useSelector((state)=>state.product)
-    console.log(products);
     
     const dispatch = useDispatch();
 
