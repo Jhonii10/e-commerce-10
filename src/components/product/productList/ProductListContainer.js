@@ -82,11 +82,11 @@ export const ProductListContainer = styled.div`
         }
     }
 
-    @media screen and (max-width: 380px) {
+    ${'' /* @media screen and (max-width: 380px) {
     .gcol {
         flex-basis: 100%; 
         max-width: 100%;
-    }}
+    }} */}
 
     
 
