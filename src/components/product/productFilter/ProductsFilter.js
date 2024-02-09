@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { FILTER_BY_BRAND, FILTER_BY_CATEGORY } from '../../../redux/slice/filterSlice';
+import { FILTER_BY_BRAND, FILTER_BY_CATEGORY, FILTER_BY_PRICE } from '../../../redux/slice/filterSlice';
 
 
 const ProductsFilter = () => {
 
    const dispatch = useDispatch();
-   const {products} = useSelector(state => state.product);
+   const {products , minPrice , maxPrice} = useSelector(state => state.product);
    const [category, setCategory] = useState('Todas');
    const [brand, setBrand] = useState('Todas');
+   const [price, setPrice] = useState( 0);
 
    const allCategory = [
     'Todas',
@@ -32,6 +33,9 @@ const ProductsFilter = () => {
         dispatch(FILTER_BY_CATEGORY({products , category: cat}))
    }
 
+   useEffect(() => {
+        dispatch(FILTER_BY_PRICE({products, price}))
+   }, [dispatch, price, products]);
 
     return (
         <ProductsFilterContainer>
@@ -64,9 +68,16 @@ const ProductsFilter = () => {
                 </select>
             </div>
             <h4>Precio</h4>
-            <p>1500</p>
+            <p>${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
             <div className='price'>
-                <input type='range' name='price' min={100} max={1000}/>
+                <input 
+                    type='range' 
+                    name='price' 
+                    min={minPrice} 
+                    max={maxPrice}
+                    value={price}
+                    onChange= {e => setPrice(e.target.value)}
+                />
             </div>
             <br/>
             <button className='btn'>

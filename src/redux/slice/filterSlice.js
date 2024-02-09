@@ -54,7 +54,7 @@ export const filterSlice = createSlice({
       state.filteredProducts = tempProducts;
     
     
-},
+    },
 
    FILTER_BY_BRAND:(state , {payload})=>{
     const {products , brand} = payload;
@@ -69,11 +69,26 @@ export const filterSlice = createSlice({
       state.filteredProducts = tempProducts;
     
     
-},
+    },
+
+    FILTER_BY_PRICE:(state , {payload})=>{
+        const {products , price} = payload;    
+        let tempProducts = [];
+        tempProducts = products.filter((product)=>product.price >= price);
+        state.filteredProducts=tempProducts;
+        },
 
 
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { FILTER_BY_SEARCH, SORT_PRODUCTS , FILTER_BY_CATEGORY, FILTER_BY_BRAND } = filterSlice.actions
+export const  {
+
+    FILTER_BY_SEARCH,
+    SORT_PRODUCTS,
+    FILTER_BY_CATEGORY,
+    FILTER_BY_BRAND,
+    FILTER_BY_PRICE
+    
+  } = filterSlice.actions
