@@ -37,6 +37,14 @@ const ProductsFilter = () => {
         dispatch(FILTER_BY_PRICE({products, price}))
    }, [dispatch, price, products]);
 
+
+
+   const clearFilters = ()=>{
+      setCategory("Todas");
+      setBrand("Todas");
+      setPrice(minPrice || 0);
+   }
+
     return (
         <ProductsFilterContainer>
             <h2>Categorias</h2>
@@ -80,7 +88,9 @@ const ProductsFilter = () => {
                 />
             </div>
             <br/>
-            <button className='btn'>
+            <button className='btn' 
+                onClick={clearFilters}
+            >
                 <span> Limpiar Filtros </span>
             </button>
 
@@ -162,6 +172,10 @@ const ProductsFilterContainer = styled.div`
 }
 
 @media screen and (max-width: 700px) {
+
+    .btn{
+        width: 100%;
+    }
   
     .category button {
       width: 100%;

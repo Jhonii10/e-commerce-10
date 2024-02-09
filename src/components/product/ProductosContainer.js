@@ -40,12 +40,11 @@ export const ProductosContainer = styled.section`
   }
   @media screen and (max-width: 700px) {
     .filter {
-      width: 50%;
+      width: 60%;
       background-color: #fff;
       border: 1px solid black;
       position: absolute;
       left: -200%;
-      height: 100%;
       padding: 1rem;
       z-index: 99;
     }

@@ -91,4 +91,4 @@ export const  {
     FILTER_BY_BRAND,
     FILTER_BY_PRICE
     
-  } = filterSlice.actions
+  } = filterSlice.actions;

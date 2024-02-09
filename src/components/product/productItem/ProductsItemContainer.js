@@ -125,4 +125,15 @@ export const ProductsItemContainer = styled.div`
     }
     }
 
+
+
+
+    @media screen and (max-width: 425px) {
+        .item-action{
+            button{
+    width: 100%;
+}
+        }
+        }
+
 `;

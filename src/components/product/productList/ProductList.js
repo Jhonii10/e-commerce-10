@@ -23,6 +23,12 @@ const ProductList = ({products}) => {
         dispatch(SORT_PRODUCTS({products ,sort}))
     }, [dispatch, products, sort]);
 
+    useEffect(() => {
+        dispatch(SORT_PRODUCTS({products ,sort}))
+    }, [dispatch, products, sort]);
+
+    
+
 
 
     return (
