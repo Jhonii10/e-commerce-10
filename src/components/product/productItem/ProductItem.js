@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProductsItemContainer } from './ProductsItemContainer';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_CART } from '../../../redux/slice/cartSlice';
 
 const ProductItem = ({product}) => {
     const {id,imageUrl,name,price} = product;
- 
+    const dispatch = useDispatch();
 
     const shortenText = (text, n)=>{
         return text.length > n ? `${text.substring(0,n)}...` : text ;
+    }
+
+
+    const addToCart = ()=>{
+        dispatch(ADD_TO_CART(product))
     }
 
     return (
@@ -29,7 +36,7 @@ const ProductItem = ({product}) => {
                 </div>
                 
             <div className='item-action'>
-                <button>
+                <button onClick={()=>addToCart()}>
                    <span> Agregar Al Carro</span>
                 </button>
             </div>
