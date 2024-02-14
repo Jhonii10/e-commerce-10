@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
 import { CartContainer } from './CartContainer';
 import { AiOutlineMinus,AiOutlinePlus } from "react-icons/ai";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { SlReload } from "react-icons/sl";
 
 
 
@@ -13,8 +15,9 @@ const Cart = () => {
     console.table({cartItems , cartTotalAmount, cartTotalQuantity})
     return (
         <CartContainer>
-            <div className='container table'>
-                <h2>Tu Lista De Compras</h2>
+            <div className='container'>
+               <div className='row'>
+                
                 {
                     cartItems.lenght === 0
                     ? <>
@@ -27,6 +30,10 @@ const Cart = () => {
                         </div>
                       </>
                     : <>
+                        <div className='col col-1'>
+                        <div className='cart-list-container'>
+                        <h2>Carrito De Compras</h2>
+                        <div className='table-container'>
                         <table>
                             <thead>
                                 <tr>
@@ -88,8 +95,41 @@ const Cart = () => {
                                     
                             </tbody>
                         </table>
+                        </div>
+                           
+                            <div className='float-left flex' >
+                                <RiDeleteBin5Line/>
+                                <span>vaciar carrito</span> 
+                            </div>
+                            <div  className='float-right '>
+                            <Link to='/#products' className='flex'>
+                                <SlReload/>
+                                 Seguir comprando
+                            </Link>
+                            </div>
+
+                        </div>
+                        </div>
+                         <div className='col col-2'>
+                        <div className='summary'>
+                            
+                            <div className='cart-header'>Resumen de la cuenta</div>
+                                <div className='cart-sidebar-box'>
+                                    <p>Productos en el carrito: {0}</p>
+                                     <div className='cart-sidebar-details'>
+                                    <h4>Subtotal</h4>
+                                    <h3>${cartTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
+                                    </div>
+                                    <p className='' >Impuestos de la compra calculados en el checkout</p>
+                                    <button><span>Finalizar compra</span></button>
+                                        
+                                </div>
+                        </div>
+                        </div>
+                                
                       </>
                 }
+                </div>
             </div>
         </CartContainer>)
 }
