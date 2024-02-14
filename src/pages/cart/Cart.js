@@ -1,25 +1,44 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
 import { CartContainer } from './CartContainer';
 import { AiOutlineMinus,AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { SlReload } from "react-icons/sl";
+import { ADD_TO_CART, CLEAR_CART, DECREASE_CART, REMOVE_FROM_CART } from '../../redux/slice/cartSlice';
 
 
 
 const Cart = () => {
 
     const {cartItems , cartTotalAmount, cartTotalQuantity} = useSelector((state)=>state.cart)
-    console.table({cartItems , cartTotalAmount, cartTotalQuantity})
+
+    
+    const dispatch = useDispatch();
+
+
+
+    const increaseCart = (cart)=>{
+        dispatch(ADD_TO_CART(cart))
+    }
+
+    const decreaseCart = (cart) => {
+        dispatch(DECREASE_CART(cart))
+    }
+
+    const deleteCart = (cart)=>{
+        dispatch(REMOVE_FROM_CART(cart))
+    }
+
+
     return (
         <CartContainer>
             <div className='container'>
                <div className='row'>
                 
                 {
-                    cartItems.lenght === 0
+                    cartItems.length === 0
                     ? <>
                         <p>No hay productos en el carrito.</p>
                         <br/>
@@ -68,13 +87,13 @@ const Cart = () => {
                                                 </td>
                                                 <td>
                                                     <div className='count flex'>
-                                                        <button className='quantity-circle'>
+                                                        <button className='quantity-circle' onClick={()=>decreaseCart(cart)}>
                                                             <AiOutlineMinus size={25} />
                                                         </button>
                                                         <div className='product-cart-row-quantity'>
                                                             <span>{cartQuantity}</span>
                                                         </div>
-                                                        <button className='quantity-circle'>
+                                                        <button className='quantity-circle' onClick={()=>increaseCart(cart)}>
                                                             <AiOutlinePlus size={25}/>
                                                         </button>
                                                     </div>
@@ -85,7 +104,7 @@ const Cart = () => {
                                                     </p>
                                                 </td>
                                                 <td>
-                                                    <MdDelete size={22} color='red'/>
+                                                    <MdDelete size={22} color='red' cursor='pointer' onClick={()=>deleteCart(cart)}/>
                                                 </td>
                                             </tr>
                                         
@@ -97,7 +116,7 @@ const Cart = () => {
                         </table>
                         </div>
                            
-                            <div className='float-left flex' >
+                            <div className='float-left flex' onClick={()=>dispatch(CLEAR_CART())}  >
                                 <RiDeleteBin5Line/>
                                 <span>vaciar carrito</span> 
                             </div>
