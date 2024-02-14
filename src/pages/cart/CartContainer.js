@@ -29,8 +29,8 @@ export const CartContainer = styled.section`
 
     th,
     td {
-      vertical-align: top;
-      text-align: left;
+      
+      text-align: center;
       padding: 8px;
       &.icons {
         > * {
@@ -40,13 +40,38 @@ export const CartContainer = styled.section`
       }
     }
 
+    .flex{
+      display: flex;
+      justify-content: center;
+      img{
+        border-radius: 10px;
+        filter: brightness(1.1);
+        mix-blend-mode: multiply;
+      }
+    }
+
+    .item-price{
+      div{
+        color: #3f3f3f;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 125%;
+        overflow: hidden;
+        margin: 0 0 7px 0;
+      }
+      p{
+        margin: 0;
+        color: #c00;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 100%;
+      }
+    }
+
     tr {
       border-bottom: 1px solid #ccc;
     }
 
-    tr:nth-child(even) {
-      background-color: #eee;
-    }
   }
   .summary {
     margin-top: 2rem;
@@ -60,9 +85,6 @@ export const CartContainer = styled.section`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        h3 {
-          color: var(--color-danger);
-        }
       }
       button {
         margin-top: 5px;
@@ -73,12 +95,39 @@ export const CartContainer = styled.section`
 .count {
   display: flex;
   align-items: center;
-  button {
-    border: 1px solid grey;
-  }
-  & > * {
-    margin-right: 1rem;
-  }
+  padding: 0;
+  margin-left: auto;
+  
+  .quantity-circle {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    cursor: pointer;
+    opacity: 1;
+    border-radius: 50%;
+    background: #8e0808;
+    border: 1px solid #8e0808;
+    padding: 2px; 
+    
+}
+
+.product-cart-row-quantity {
+    padding: 0 7px;
+    height: 28px;
+    font-size: 12px;
+    color: #333;
+    margin: 0 4px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 28px;
+    background: #f3f3f3;
+    border-radius: 5px;
+}
+  
+ 
 }
 
 `;
