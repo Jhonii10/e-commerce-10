@@ -5,6 +5,8 @@ import { db } from '../../../firebase/config';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Loading from '../../loader/Loading';
+import { useDispatch } from 'react-redux';
+import { ADD_MULTIPLE_CART, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slice/cartSlice';
 
 
  const ProductDetailsContainer = styled.section`
@@ -225,7 +227,9 @@ const ProductsDetails = () => {
 
     const {id} = useParams();
     const [product, setProduct] = useState(null);
-
+    const [quantity, setQuantity] = useState(1);
+    const dispatch = useDispatch();
+   
 
     const navigate = useNavigate();
     const getProduct = async ()=>{
@@ -255,6 +259,26 @@ const ProductsDetails = () => {
         navigate('/#productos')
     }
 
+    const handleQuantityChange = (e) => {
+        let newValue = e.target.value === '' || e.target.value < 1 ? 1 : e.target.value;
+        newValue = Math.min(newValue, 10); 
+        setQuantity(newValue);
+    };
+
+    const incrementQuantity = ()=>{
+        setQuantity((quantity)=>quantity+1)
+    }
+
+    const decrementQuantity = ()=>{
+        setQuantity((quantity)=>quantity-1)
+    }
+
+    const addToCart = ()=>{
+        dispatch(ADD_MULTIPLE_CART({ ...product, cartQuantity: quantity }))
+        dispatch(CALCULATE_TOTAL_QUANTITY())
+        navigate('/cart')
+    }
+
 
     return (
         <ProductDetailsContainer>
@@ -281,7 +305,7 @@ const ProductsDetails = () => {
                                     <h3>{product.name}</h3>
                                     
                                     <p>{product.desc}</p>
-                                    <p className='price'>${product.price}</p>
+                                    <p className='price'>${product.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
                                     <p>
                                         <b>SKU:</b>
                                         {product.id}
@@ -294,15 +318,43 @@ const ProductsDetails = () => {
                                          <label className="title-option" for="Cantidad">Cantidad</label>
                                          <div class="qty-block">
                                         <div class="qty-square-buttons">
-                                            <button name="button" type="button" class="quantity-square minus-square" data-type="minus" disabled="disabled">-</button>
+                                            <button 
+                                                name="button" 
+                                                type="button" 
+                                                class="quantity-square minus-square" 
+                                                data-type="minus" 
+                                                onClick={decrementQuantity}
+                                                disabled={quantity <= 1 && true}
+                                            >-</button>
                                             <div class="qty-input">
-                                            <input type="number" name="quantity" value="1" disabled class="qty-field" autocomplete="off" min="1" max="999" data-min="1" data-max="1" data-default="1"/>
+                                            <input 
+                                                type="number" 
+                                                name="quantity" 
+                                                value={quantity}
+                                                onChange={(e)=>setQuantity(e.target.value)}
+                                                onBlur={(e) => handleQuantityChange(e)}
+                                                className="qty-field" 
+                                                autocomplete="off" 
+                                                min="1" 
+                                                max="999" 
+                                                data-min="1" 
+                                                data-max="1" 
+                                                data-default="1"
+
+                                            />
                                             </div>
-                                            <button name="button" type="button" class="quantity-square plus-square" data-type="plus" disabled="disabled">+</button>
+                                            <button 
+                                                name="button" 
+                                                type="button" 
+                                                class="quantity-square plus-square" 
+                                                data-type="plus" 
+                                                onClick={incrementQuantity}
+                                                disabled={quantity >= 10 && true}
+                                            >+</button>
                                         </div>
                                         </div>
                                     </div>
-                                    <button className='button-add'>
+                                    <button className='button-add' onClick={addToCart}>
                                         <span>  AGREGAR AL CARRITO</span>
                                     </button>
                                 </div>
