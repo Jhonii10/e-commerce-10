@@ -5,6 +5,7 @@ const HeaderContainer = styled.header`
   background-color: black;
   color: #fff;
 
+
   .header {
     width: 100%;
     height: 8rem;
