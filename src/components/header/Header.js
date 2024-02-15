@@ -9,13 +9,18 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
 import { FaRegUser } from "react-icons/fa6"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from '../../redux/slice/authSlice';
 import { ShowOnLogIn, ShowOnLogout } from '../hiddenLink/HiddenLink';
 import AdminOnlyRoute from '../adminOnlyRoute/AdminOnlyRoute';
+import { CALCULATE_TOTAL_QUANTITY } from '../../redux/slice/cartSlice';
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
+
+
+
+
 
 const logo = (
 
@@ -29,31 +34,21 @@ const logo = (
         </div>
 )
 
-const cart = (
-    <span className='cart'>
-        <NavLink to='cart' className={activeLink}>
-            <Badge 
-                badgeContent={'0'} 
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }} 
-                overlap="rectangular" 
-                color="error"
-            >
-             <FaCartShopping size={20}/>
-            </Badge>
-        </NavLink>
-    </span>
-)
-
-
 
 const Header = () => {
 
+    const {cartTotalQuantity} = useSelector((state)=>state.cart);
     const [showMenu, setshowMenu] = useState(false);
     const [displayName, setDisplayName] = useState('');
-    const navigate = useNavigate();
 
-    
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(CALCULATE_TOTAL_QUANTITY())
+    }, [dispatch]);
+
+
 
     useEffect(() => {
 
@@ -98,6 +93,21 @@ const Header = () => {
               toast.error('ocurrio un problema')
           });
     }
+
+    const cart = (
+        <span className='cart'>
+            <NavLink to='cart' className={activeLink}>
+                <Badge 
+                    badgeContent={cartTotalQuantity || '0'} 
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }} 
+                    overlap="rectangular" 
+                    color="error"
+                >
+                 <FaCartShopping size={20}/>
+                </Badge>
+            </NavLink>
+        </span>
+    )
 
     return (
         <HeaderContainer>
@@ -172,7 +182,7 @@ const Header = () => {
                         </span>
                         
                         {cart}
-                        
+
                     </div>
                 </nav>
                 <div className='menu-icon'>
