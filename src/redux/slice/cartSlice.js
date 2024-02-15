@@ -51,15 +51,43 @@ export const cartSlice = createSlice({
 
    },
    CLEAR_CART:(state)=>{
-    
+
         state.cartItems = [];
         state.cartTotalQuantity = 0;
         state.cartTotalAmount = 0;
 
         localStorage.removeItem('cart-items')
+   },
+   CALCULATE_SUBTOTAL:(state , {payload})=>{
+        const array = [];
+        
+        state.cartItems.map((item)=>{
+            const {price , cartQuantity}= item;
+            const cartItemsAmount = price * cartQuantity;
+            
+            return array.push(cartItemsAmount)
+        })
+
+        let totalAmount = array.reduce((a, b) => a + b, 0);
+
+        state.cartTotalAmount = totalAmount;
+
+   },
+   CALCULATE_TOTAL_QUANTITY:(state , {payload})=>{
+        const array = [];
+
+        state.cartItems.map((item)=>{
+            const {cartQuantity} = item;
+            return array.push(cartQuantity)
+        })
+
+        let totalQuantity = array.reduce((a,b)=> a + b , 0)
+
+        state.cartTotalQuantity = totalQuantity
+
    }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { ADD_TO_CART, DECREASE_CART, REMOVE_FROM_CART , CLEAR_CART } = cartSlice.actions
+export const { ADD_TO_CART, DECREASE_CART, REMOVE_FROM_CART , CLEAR_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY} = cartSlice.actions
