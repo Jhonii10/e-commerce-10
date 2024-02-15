@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdDelete } from "react-icons/md";
 import { CartContainer } from './CartContainer';
 import { AiOutlineMinus,AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { SlReload } from "react-icons/sl";
-import { ADD_TO_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, CLEAR_CART, DECREASE_CART, REMOVE_FROM_CART } from '../../redux/slice/cartSlice';
+import { ADD_TO_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, CLEAR_CART, DECREASE_CART, REMOVE_FROM_CART, SAVE_URL } from '../../redux/slice/cartSlice';
 
 
 
 const Cart = () => {
 
     const {cartItems , cartTotalAmount, cartTotalQuantity} = useSelector((state)=>state.cart)
+    const {isLoggedIn}=useSelector((state)=>state.auth)
 
     
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
 
 
@@ -34,7 +37,19 @@ const Cart = () => {
     useEffect(() => {
         dispatch(CALCULATE_SUBTOTAL())
         dispatch(CALCULATE_TOTAL_QUANTITY())
+        dispatch(SAVE_URL(''))
     }, [dispatch , cartItems]);
+
+    const url = window.location.href;
+    
+    const checkout = ()=>{
+        if (isLoggedIn) {
+            navigate('/checkout-details')
+        } else {
+            dispatch(SAVE_URL(url))
+            navigate('/login')
+        }
+    }
 
 
     return (
@@ -145,7 +160,11 @@ const Cart = () => {
                                     <h3>${cartTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
                                     </div>
                                     <p>Impuestos de la compra calculados en el checkout</p>
-                                    <button><span>Finalizar compra</span></button>
+                                    <button
+                                        onClick={checkout}
+                                        >
+                                        <span>Finalizar compra</span>
+                                    </button>
                                         
                                 </div>
                         </div>

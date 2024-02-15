@@ -5,7 +5,8 @@ const initialState = {
     cartItems: localStorage.getItem('cart-items')
     ? JSON.parse(localStorage.getItem('cart-items')) : [],
     cartTotalQuantity:0,
-    cartTotalAmount:0
+    cartTotalAmount:0,
+    previousUrl:'',
 }
 
 export const cartSlice = createSlice({
@@ -100,9 +101,14 @@ export const cartSlice = createSlice({
 
         state.cartTotalQuantity = totalQuantity
 
+   },
+   SAVE_URL:(state, {payload})=>{
+        console.log(payload);
+        state.previousUrl = payload;
+
    }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { ADD_TO_CART, DECREASE_CART, REMOVE_FROM_CART , CLEAR_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, ADD_MULTIPLE_CART} = cartSlice.actions
+export const { ADD_TO_CART, DECREASE_CART, REMOVE_FROM_CART , CLEAR_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, ADD_MULTIPLE_CART , SAVE_URL} = cartSlice.actions

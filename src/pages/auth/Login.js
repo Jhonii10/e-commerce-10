@@ -6,6 +6,7 @@ import { Card, Loader } from '../../components';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
 const Login =  () => {
@@ -15,6 +16,15 @@ const Login =  () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
+    const {previousUrl} = useSelector((state)=>state.cart)
+
+    const redirectUser = ()=>{
+        if (previousUrl.includes('cart')){
+            return navigate('/cart')
+        }else{
+            return navigate('/')
+        }
+    }
 
     const loginUser =  (event)=>{
         event.preventDefault();
@@ -27,7 +37,7 @@ const Login =  () => {
             // const user = userCredential.user;
             setIsLoading(false)
             toast.success('Inico de sesión exitoso')
-            navigate('/');
+            redirectUser()
         })
         .catch((error) => {
             const errorMessage = error.message;
@@ -45,7 +55,7 @@ const Login =  () => {
         .then((result) => {
             // const user = result.user;
             toast.success('Inico de sesión exitoso')
-            navigate('/');
+            redirectUser();
             
         }).catch((error) => {
             toast.error(error.message)
