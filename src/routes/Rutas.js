@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Footer, Header } from '../components';
+import { Checkout, Footer, Header } from '../components';
 import { Admin, Cart, Contact, Home, OrderHistory } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
 import { ToastContainer } from 'react-toastify';
@@ -28,6 +28,7 @@ const Rutas = () => {
                     <Route path="/reset" element={<Reset />} />
                     <Route path='/cart' element={<Cart/>}/>
                     <Route path='/order-history' element={<OrderHistory/>}/>
+                    <Route path='/checkout' element={<Checkout/>}/>
 
                     {
                         isAdmin &&
