@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { CheckoutDetailsContainer } from './CheckoutDetailsContainer';
 import { RegionDropdown } from 'react-country-region-selector';
+import CheckoutSummary from './CheckoutSummary';
 
 const initialDataState = {
     name: "",
@@ -240,9 +241,7 @@ const CheckoutDetails = () => {
                     </div>
                 </div>
                 <div className='col col-2'>
-                <div className='card'>
-                <div className='step-header'>Resumen de compra</div>
-                </div>
+                <CheckoutSummary/>
                 </div>
                 </div>
             </div>

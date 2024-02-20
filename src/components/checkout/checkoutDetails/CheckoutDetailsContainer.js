@@ -26,14 +26,14 @@ export const CheckoutDetailsContainer = styled.section`
         }
 
         .col-1{
-        flex: 0 0 66.66666667%;
-        max-width: 66.66666667%;
+            flex: 0 0 58.33333333%;
+            max-width: 58.33333333%;
 
         }
 
         .col-2{
-        flex: 0 0 33.33333333%;
-        max-width: 33.33333333%;
+            flex: 0 0 41.66666667%;
+    max-width: 41.66666667%;
 
         }
 
@@ -182,7 +182,7 @@ export const CheckoutDetailsContainer = styled.section`
     }
 
 
-    @media screen and (max-width: 999px) {
+    @media screen and (max-width:  992px) {
 
     .row{
     .col-1{
