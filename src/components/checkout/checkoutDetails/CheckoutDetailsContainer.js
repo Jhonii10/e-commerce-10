@@ -163,58 +163,28 @@ export const CheckoutDetailsContainer = styled.section`
 }
 }
 
-    
-
-    .checkout {
-    width: 100%;
-    position: relative;
-
-    .card {
-        width: 100%;
-        max-width: 500px;
-        padding: 1rem;
-        h3 {
-        font-weight: 300;
-        }
+.proceed-to-checkout{
+    display:flex;
+    justify-content: center;
+    padding: 20px 0 20px 0;
+    .btn {
+            margin-top: 5px;
+            display: inline-block;
+            border: 0;
+            border-radius: 10px ;
+            color: #fff;
+            background-color: #8e0808;
+            cursor: pointer;
+            padding: 13px 22px;
+            font-size: 17px;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            font-family: 'Quicksand';          
     }
+}
 
-    form {
-        width: 100%;
-        display: flex;
-
-        div {
-        width: 100%;
-        }
-
-        label {
-        display: block;
-        font-size: 1.4rem;
-        font-weight: 500;
-        }
-        input[type="text"],
-        .select,
-        .card-details {
-        display: block;
-        font-size: 1.6rem;
-        font-weight: 300;
-        padding: 1rem;
-        margin: 1rem auto;
-        width: 100%;
-        border: 1px solid #777;
-        border-radius: 3px;
-        outline: none;
-        }
-    }
-    }
 
     @media screen and (max-width: 700px) {
-    .checkout {
-        form {
-        flex-direction: column;
-        div {
-            width: 100%;
-        }
-        }
-    }
+    
     }
 `;

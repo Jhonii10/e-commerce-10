@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { CheckoutDetailsContainer } from './CheckoutDetailsContainer';
+import { FaArrowRight } from "react-icons/fa";
 
 const initialDataState = {
     name: "",
@@ -196,12 +197,11 @@ const CheckoutDetails = () => {
                                 </span>
                             </p>
                             </label>
-                            <div>
-                                <button
-                                type='submit'
-                                >
-                                    Continuar
-                                </button>
+                            <div className="proceed-to-checkout text-center pb-4">
+                            <button type="submit" className="btn btn-xlg btn-success up-bold">
+                                CONTINUAR
+                                
+                            </button>
                             </div>
                         </div>
 
