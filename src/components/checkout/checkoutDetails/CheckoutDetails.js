@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { CheckoutDetailsContainer } from './CheckoutDetailsContainer';
-import { FaArrowRight } from "react-icons/fa";
+import { RegionDropdown } from 'react-country-region-selector';
 
 const initialDataState = {
     name: "",
@@ -10,18 +10,37 @@ const initialDataState = {
     phoneNumber:"",
 }
 
+const initialAddressState = {
+    address:'',
+    id:'',
+    city:'',
+    country:'',
+}
+
 const CheckoutDetails = () => {
 
-    const [shippingAdreess, setShippingAdreess] = useState(initialDataState);
+    const [dateState, setDateState] = useState(initialDataState);
+    const [addressState, setaddressState] = useState(initialAddressState);
 
-    const handleShipping = (e)=>{
+    const handleDate = (e)=>{
         const { name, value } = e.target;
-        setShippingAdreess({ ...shippingAdreess, [name]: value });
+        setDateState({ ...dateState, [name]: value });
+    }
+
+    const handleAddress = (e)=>{
+        const { name, value } = e.target;
+        setaddressState({ ...addressState, [name]: value });
     }
 
 
     const handleSubmit = (e)=>{
         e.preventDefault();
+        const formDate ={
+            ...dateState,
+            ...addressState
+        }
+        console.log(formDate)
+
     }
     
     return (
@@ -43,8 +62,8 @@ const CheckoutDetails = () => {
                                     className="form-control"
                                     type="text"
                                     name='name' 
-                                    value={shippingAdreess.name}
-                                    onChange={(e)=>handleShipping(e)}
+                                    value={dateState.name}
+                                    onChange={(e)=>handleDate(e)}
                                     required
                                     
                                 />
@@ -60,8 +79,8 @@ const CheckoutDetails = () => {
                                     className="form-control"
                                     type="text"
                                     name='lastname' 
-                                    value={shippingAdreess.lastname}
-                                    onChange={(e)=>handleShipping(e)}
+                                    value={dateState.lastname}
+                                    onChange={(e)=>handleDate(e)}
                                     required
                                 />
                                 </div>
@@ -79,8 +98,8 @@ const CheckoutDetails = () => {
                                     className="form-control"
                                     type="text"
                                     name='email' 
-                                    value={shippingAdreess.email}
-                                    onChange={(e)=>handleShipping(e)}
+                                    value={dateState.email}
+                                    onChange={(e)=>handleDate(e)}
                                     required
                                 />
                                 </div>
@@ -95,8 +114,8 @@ const CheckoutDetails = () => {
                                     className="form-control"
                                     type="text"
                                     name='phoneNumber' 
-                                    defaultValue={shippingAdreess.phoneNumber}
-                                    onChange={(e)=>handleShipping(e)}
+                                    defaultValue={dateState.phoneNumber}
+                                    onChange={(e)=>handleDate(e)}
                                     required
                                     
                                 />
@@ -115,11 +134,13 @@ const CheckoutDetails = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    name=""
+                                    name="address"
                                     className="form-control"
                                     placeholder="Dirección (incluir info adicional como Apto, Torre, etc)"
                                     autoComplete="off"
                                     required
+                                    value={addressState.address}
+                                    onChange={(e)=>handleAddress(e)}
                                 />
                             </div>
 
@@ -129,15 +150,39 @@ const CheckoutDetails = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    name=""
+                                    name="id"
                                     className="form-control "
                                     placeholder="Cédula o Documento de Identificación (escribir sólo números)"
                                     autoComplete="off"
+                                    value={addressState.id}
+                                    onChange={(e)=>handleAddress(e)}
+
                                 />
                             </div>
 
                             <div className="row">
-                               <div className='col col-sm-10'>
+                               
+                                <div className='col col-sm-10'>
+                                <div className='form-group'>
+                                <label className="label-field" >
+                                    Departamento
+                                </label>
+                                
+
+                            <RegionDropdown
+                                classes='form-control'
+                                country='Colombia'
+                                value={addressState.country}
+                                defaultOptionLabel='Selecione el Departamento'
+                                onChange={(val)=>handleAddress({target: {name: "country",value: val,}})}
+                                required
+                            />
+                                
+                                
+                                </div>
+                                </div>
+
+                                <div className='col col-sm-10'>
                                 <div className='form-group'>
                                 <label className="label-field" >
                                     Cuidad
@@ -145,25 +190,9 @@ const CheckoutDetails = () => {
                                 <input
                                     className="form-control"
                                     type="text"
-                                    name='email' 
-                                    value={shippingAdreess.email}
-                                    onChange={(e)=>handleShipping(e)}
-                                    required
-                                />
-                                </div>
-                                </div>
-
-                                <div className='col col-sm-10'>
-                                <div className='form-group'>
-                                <label className="label-field" >
-                                    Departamento
-                                </label>
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    name='phoneNumber' 
-                                    defaultValue={shippingAdreess.phoneNumber}
-                                    onChange={(e)=>handleShipping(e)}
+                                    name='city' 
+                                    value={addressState.city}
+                                    onChange={(e)=>handleAddress(e)}
                                     required
                                 />
                                 </div>
