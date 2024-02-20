@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaCartShopping } from 'react-icons/fa6';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slice/cartSlice';
+
+
 
 const CheckoutSummary = () => {
 
     const [showList, setShowList] = useState(false);
-    const lista = [1,2,3]
+    const {cartItems , cartTotalAmount} = useSelector((state)=>state.cart)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(CALCULATE_SUBTOTAL())
+        dispatch(CALCULATE_TOTAL_QUANTITY())
+    }, [dispatch , cartItems]);
+
+
+    const formatAmount = (amount) => {
+        return amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      };
 
     return (
         <CheckoutSummaryContainer>
@@ -20,26 +35,28 @@ const CheckoutSummary = () => {
                 Resumen del pedido
                 <MdOutlineKeyboardArrowDown size={20}/>
                 </span>               
-                <strong >$54.000</strong>
+                <strong >${formatAmount(cartTotalAmount)}</strong>
             </div>
           </div>
           <div className={`summary-cart ${showList ? 'active' : ''}`} >
             {
-                lista.map((item)=>(
-                    <div className='cart-list-product'>
+                cartItems.map((cart , index)=>{
+                    const {id , name , price, imageUrl, cartQuantity} = cart;
+                    return(
+                    <div className='cart-list-product' key={id}>
                         <div className='cart-img'>
-                            <img src='' alt='silla'/>
+                            <img src={imageUrl} alt={name}/>
                         </div>
                         <div className='item-data'>
-                            <div class="item-title-cart">Silla Rimax Barú Con Brazos Gris Hielo</div>
+                            <div class="item-title-cart">{name}</div>
                             <p class="item-price">
-                                $54.000
+                                {formatAmount(price * cartQuantity)}
                             </p>
                         </div>
-                        <div class="resume-qty">1</div>
+                        <div class="resume-qty">{cartQuantity}</div>
                         
                     </div>
-                ))
+                )})
             }
 
           </div>
@@ -48,18 +65,18 @@ const CheckoutSummary = () => {
         <div className="cart-subtotal-details ">
             <span className="shipment-text">Subtotal</span>{" "}
             <small>
-            <span>$50.000</span>
+            <span>${formatAmount(cartTotalAmount - (cartTotalAmount*.19))}</span>
             </small>
         </div>
         <div className="cart-iva-details ">
             <span >IVA</span>{" "}
             <small >
-            <span>$4000</span>
+            <span>${ formatAmount(cartTotalAmount*0.19) }</span>
             </small>
         </div>
         <div className="cart-total-details ">
             <span>Total</span>
-            <strong>$54000</strong>
+            <strong>${formatAmount(cartTotalAmount)}</strong>
         </div>
         </div>
 
