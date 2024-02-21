@@ -2,9 +2,9 @@ import React from 'react';
 
 const Checkout = () => {
     return (
-        <>
-            Checkout Payment
-        </>
+        <div>
+            <h1>Checkout</h1>
+        </div>
     );
 }
 
