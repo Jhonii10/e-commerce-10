@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Checkout, Footer, Header } from '../components';
+import { Checkout, CheckoutDetails, Footer, Header } from '../components';
 import { Admin, Cart, Contact, Home, OrderHistory } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
 import { ToastContainer } from 'react-toastify';
@@ -32,8 +32,10 @@ const Rutas = () => {
 
                     <Route
                             path="/checkout"
-                            element={cartItems.length > 0 ? <Checkout /> : <Navigate to="/cart" />}
+                            element={cartItems.length > 0 ? <CheckoutDetails/> : <Navigate to="/cart" />}
                     />
+
+                    <Route path='/checkout/payment' element={<Checkout/>}/>
 
                     {
                         isAdmin &&

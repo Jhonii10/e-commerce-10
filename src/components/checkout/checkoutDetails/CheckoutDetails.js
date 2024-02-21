@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { CheckoutDetailsContainer } from './CheckoutDetailsContainer';
 import { RegionDropdown } from 'react-country-region-selector';
 import CheckoutSummary from './CheckoutSummary';
+import { useDispatch } from 'react-redux';
+import { SAVE_SHIPPING_ADDRESS, SAVE_SHIPPING_DATE } from '../../../redux/slice/checkoutSlice';
+import { useNavigate } from 'react-router-dom';
 
 const initialDataState = {
     name: "",
@@ -22,6 +25,9 @@ const CheckoutDetails = () => {
 
     const [dateState, setDateState] = useState(initialDataState);
     const [addressState, setaddressState] = useState(initialAddressState);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
 
     const handleDate = (e)=>{
         const { name, value } = e.target;
@@ -36,12 +42,9 @@ const CheckoutDetails = () => {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        const formDate ={
-            ...dateState,
-            ...addressState
-        }
-        console.log(formDate)
-
+        dispatch(SAVE_SHIPPING_DATE(dateState))
+        dispatch(SAVE_SHIPPING_ADDRESS(addressState))
+        navigate('payment')
     }
     
     return (
