@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { CheckoutDetailsContainer } from './CheckoutDetailsContainer';
 import { RegionDropdown } from 'react-country-region-selector';
-import CheckoutSummary from './CheckoutSummary';
+import CheckoutSummary from '../checkoutSummary/CheckoutSummary';
 import { useDispatch } from 'react-redux';
 import { SAVE_SHIPPING_ADDRESS, SAVE_SHIPPING_DATE } from '../../../redux/slice/checkoutSlice';
 import { useNavigate } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Checkout, CheckoutDetails, Footer, Header } from '../components';
-import { Admin, Cart, Contact, Home, OrderHistory } from '../pages';
+import { CheckoutDetails, Footer, Header } from '../components';
+import { Admin, Cart, Checkout, Contact, Home, OrderHistory } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
