@@ -48,12 +48,12 @@ const CheckoutSummary = () => {
                             <img src={imageUrl} alt={name}/>
                         </div>
                         <div className='item-data'>
-                            <div class="item-title-cart">{name}</div>
-                            <p class="item-price">
+                            <div className="item-title-cart">{name}</div>
+                            <p className="item-price">
                                 {formatAmount(price * cartQuantity)}
                             </p>
                         </div>
-                        <div class="resume-qty">{cartQuantity}</div>
+                        <div className="resume-qty">{cartQuantity}</div>
                         
                     </div>
                 )})

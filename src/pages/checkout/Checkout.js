@@ -20,6 +20,7 @@ const Checkout = () => {
 
     const description = `Tienda payment: email: ${shippingDate.email}, Amount: ${cartTotalAmount}`
 
+
     useEffect(() => {
         dispatch(CALCULATE_SUBTOTAL())
         dispatch(CALCULATE_TOTAL_QUANTITY())
