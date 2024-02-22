@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminOnlyRoute from '../components/adminOnlyRoute/AdminOnlyRoute';
 import { useSelector } from 'react-redux';
 import ProductsDetails from '../components/product/productDetails/ProductsDetails';
+import { CheckoutSuccess } from '../components/checkout';
 
 const Rutas = () => {
 
@@ -36,6 +37,7 @@ const Rutas = () => {
                     />
 
                     <Route path='/checkout/payment' element={<Checkout/>}/>
+                    <Route path='/checkout/payment-success' element={<CheckoutSuccess/>}/>
 
                     {
                         isAdmin &&
