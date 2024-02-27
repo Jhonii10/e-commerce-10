@@ -1,15 +1,26 @@
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { db } from "../../../firebase/config";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { CLEAR_CART } from "../../../redux/slice/cartSlice";
 
 
 const CheckoutForm =() =>{
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
+  const dispatch= useDispatch();
 
+  const {shippingAddress} = useSelector((state)=>state.checkout);
+  const {userID , email } = useSelector((state)=>state.auth);
+  const { cartItems, cartTotalAmount} = useSelector((state)=>state.cart);
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   useEffect(() => {
     if (!stripe) {
@@ -42,10 +53,34 @@ const CheckoutForm =() =>{
     });
   }, [stripe]);
 
-  const saveOrder = ()=>{
-    //save the order in your database here
-    console.log('Order saved');
-  }
+  const saveOrder = async()=>{
+
+    const today = new Date();
+    const date = today.toDateString();
+    const time = today.toLocaleDateString();
+    const orderConfig = {
+        userID,
+        email,
+        orderDate:date,
+        orderTime: time,
+        orderAmount: cartTotalAmount,
+        cartItems,
+        shippingAddress,
+        createdAt: Timestamp.now().toDate(),
+
+    }
+    try {
+      await addDoc(collection(db, "orders"), orderConfig);
+      dispatch(CLEAR_CART());
+      toast.success('Pedido guardado exitosamente');
+      navigate('/checkout/payment-success');
+      
+    } catch (error) {
+          setIsLoading(false)
+          toast.error(error.message)
+    }
+
+}
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +100,7 @@ const CheckoutForm =() =>{
         // Make sure to change this to your payment completion page
         return_url:"http://localhost:3000/checkout/payment-success",
       },
-      redirect:'if_required'
+      redirect:'if_required',
     }).then((res)=>{
 
         if (res.error) {

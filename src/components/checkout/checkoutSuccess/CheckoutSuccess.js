@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { CiCircleCheck } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutSuccess = () => {
+    const navigate = useNavigate();
     return (
         <CheckoutSuccessContainer>
           <div className='container'>
@@ -11,7 +13,10 @@ const CheckoutSuccess = () => {
             <CiCircleCheck size={70}  color="green"/>
             <h1>¡Pago exitoso!</h1>
             <p>Muchas gracias por su compra</p>
-            <button className='btn'>
+            <button 
+                className='btn'
+                onClick={()=>navigate('/#productos')}
+                >
                     <IoIosArrowBack size={30}/>
                     Regresar a a la Tienda
                 </button>
