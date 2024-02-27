@@ -21,7 +21,7 @@ const OrderHistory = () => {
 
 
     const handleClik = (id) => {
-        return navigate('/order-Detail/') 
+        return navigate(`/order-details/${id}`); 
     }
 
     const filteredOrders = orders.filter((order) => order.userID === userID);

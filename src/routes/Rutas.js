@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { CheckoutDetails, Footer, Header } from '../components';
-import { Admin, Cart, Checkout, Contact, Home, OrderHistory } from '../pages';
+import { Admin, Cart, Checkout, Contact, Home, OrderDetails, OrderHistory } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,6 +30,7 @@ const Rutas = () => {
                     <Route path="/reset" element={<Reset />} />
                     <Route path='/cart' element={<Cart/>}/>
                     <Route path='/order-history' element={<OrderHistory/>}/>
+                    <Route path='/order-details/:id' element={<OrderDetails/>}/>
 
                     <Route
                             path="/checkout"
