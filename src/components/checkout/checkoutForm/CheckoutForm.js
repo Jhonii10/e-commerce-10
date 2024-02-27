@@ -56,14 +56,15 @@ const CheckoutForm =() =>{
   const saveOrder = async()=>{
 
     const today = new Date();
-    const date = today.toDateString();
-    const time = today.toLocaleDateString();
+    const date = today.toLocaleDateString();
+    const time = today.toLocaleTimeString();
     const orderConfig = {
         userID,
         email,
         orderDate:date,
         orderTime: time,
         orderAmount: cartTotalAmount,
+        orderStatus:'Pendiente',
         cartItems,
         shippingAddress,
         createdAt: Timestamp.now().toDate(),

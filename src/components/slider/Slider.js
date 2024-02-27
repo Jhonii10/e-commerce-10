@@ -54,7 +54,7 @@ const Slider = () => {
                           <div className='content'>
                              <h2>{slide.heading}</h2>
                              <p>{slide.desc}</p>
-                             <a href="#product" className="btn btn-primary">
+                             <a href="#productos" className="btn btn-primary">
                                 Comprar ahora
                              </a>
                           </div>
