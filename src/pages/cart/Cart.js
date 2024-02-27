@@ -141,7 +141,7 @@ const Cart = () => {
                                 <span>vaciar carrito</span> 
                             </div>
                             <div  className='float-right '>
-                            <Link to='/#products' className='flex'>
+                            <Link to='/#productos' className='flex'>
                                 <SlReload/>
                                  Seguir comprando
                             </Link>
