@@ -1,12 +1,10 @@
-import { doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { db } from '../../../firebase/config';
-import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import Loading from '../../loader/Loading';
 import { useDispatch } from 'react-redux';
 import { ADD_MULTIPLE_CART, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slice/cartSlice';
+import { UseFetchDocument } from '../../../hooks/useFetchDocument';
 
 
  const ProductDetailsContainer = styled.section`
@@ -226,34 +224,13 @@ import { ADD_MULTIPLE_CART, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slic
 const ProductsDetails = () => {
 
     const {id} = useParams();
-    const [product, setProduct] = useState(null);
+    // const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
    
 
     const navigate = useNavigate();
-    const getProduct = async ()=>{
-
-        const docRef = doc(db, "products", id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-        const obj = {
-            id:id,
-            ...docSnap.data(),
-        }
-        setProduct(obj);
-        } else {
-        toast.error('Producto no encontrado')
-}
-    }
-    
- 
-    useEffect(() => {
-        getProduct()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id]);
-
+    const {document:product} = UseFetchDocument("products", id);
 
     const handleBack = ()=>{
         navigate('/#productos')
