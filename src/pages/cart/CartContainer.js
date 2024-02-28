@@ -259,6 +259,7 @@ export const CartContainer = styled.section`
       .col-2{
         flex: 0 0 100%;
         max-width: 100%;
+        
 
       }
 

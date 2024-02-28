@@ -3,7 +3,7 @@ import { OrderDetailsContainer } from './OrderDetailsContainer';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { UseFetchDocument } from '../../hooks/useFetchDocument';
-import { Loader, Loading } from '../../components';
+import { Loading } from '../../components';
 
 const OrderDetails = () => {
     const {id} = useParams();
