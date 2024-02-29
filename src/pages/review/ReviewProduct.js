@@ -1,26 +1,53 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { UseFetchDocument } from '../../hooks/useFetchDocument';
 import { Loading } from '../../components';
 import StarsRating from 'react-star-rate';
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { db } from '../../firebase/config';
+import { toast } from 'react-toastify';
+import { Report } from 'notiflix';
 
 const ReviewProduct = () => {
     
     const [rate, setRate] = useState(0);
     const [review, setReview] = useState('');
+    const navigate = useNavigate();
+   
     
     const {id} = useParams();
 
     const {document:product} = UseFetchDocument("products", id);
-    console.log(product);
-
 
     const {userID, userName} = useSelector((state)=>state.auth)
 
-    const submitReview = (event)=>{
+    const submitReview = async(event)=>{
         event.preventDefault();
+
+        const today = new Date();
+        const date = today.toLocaleDateString();
+        const time = today.toLocaleTimeString();
+        const reviewConfig = {
+            userID,
+            userName,
+            productID: id,
+            rate,
+            review,
+            reviewDate:date,
+            reviewTime:time,
+            createdAt: Timestamp.now().toDate(),
+        }
+        try {
+          await addDoc(collection(db, "reviews"), reviewConfig);
+          Report.success('Reseña guardada exitosamente','','regresar',()=>{navigate(-1)});
+          setRate(0);
+          setReview('');
+          
+        } catch (error) {
+              toast.error(error.message)
+        }
     }
    
 
@@ -174,6 +201,7 @@ const ReviewProductContainer = styled.section`
         border-radius: 3px;
         outline: none;
         font-family: "Quicksand", sans-serif;
+        max-width: 100%;
         }
     }
     }
@@ -204,7 +232,7 @@ const ReviewProductContainer = styled.section`
     }
 
     
-    @media screen and (max-width: 999px) {
+    @media screen and (max-width: 600px) {
 
     .row{
     .col-1{
@@ -218,6 +246,7 @@ const ReviewProductContainer = styled.section`
         margin-top: 12px;
 
     }
-    }}
+    }
+    }
 
 `;
