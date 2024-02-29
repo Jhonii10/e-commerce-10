@@ -5,6 +5,8 @@ import Loading from '../../loader/Loading';
 import { useDispatch } from 'react-redux';
 import { ADD_MULTIPLE_CART, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slice/cartSlice';
 import { UseFetchDocument } from '../../../hooks/useFetchDocument';
+import { UseFetchCollection } from '../../../hooks/useFetchCollection';
+import StarsRating from 'react-star-rate';
 
 
  const ProductDetailsContainer = styled.section`
@@ -25,6 +27,18 @@ import { UseFetchDocument } from '../../../hooks/useFetchDocument';
     }
     .review {
         border-top: 1px solid #ccc;
+        padding: 20px 30px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top:12px;
+        margin-bottom:12px;
+        display:flex;
+        flex-direction: column;
+
+        p{
+            margin: 6px 0 6px 0;
+        }
+        
     }
     
     .details {
@@ -198,6 +212,8 @@ import { UseFetchDocument } from '../../../hooks/useFetchDocument';
     }
     }
 
+    
+
     @media screen and (max-width: 991.98px){
         .container {
         max-width: 100%;
@@ -224,13 +240,15 @@ import { UseFetchDocument } from '../../../hooks/useFetchDocument';
 const ProductsDetails = () => {
 
     const {id} = useParams();
-    // const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
    
 
     const navigate = useNavigate();
     const {document:product} = UseFetchDocument("products", id);
+    const {data } = UseFetchCollection('reviews');
+
+    const filterReviews = data.filter((review)=> review.productID === id)
 
     const handleBack = ()=>{
         navigate('/#productos')
@@ -341,6 +359,35 @@ const ProductsDetails = () => {
                         </>
                      )
                 }
+                <div>
+                    <h3>Reseñas del productos</h3>
+                    {
+                      filterReviews.length === 0 ? (
+                        <p>Aún no hay reseñas para este producto.</p>
+                      ) :( 
+                        <>
+                        {
+                      filterReviews.map((reviews , index) => {
+                        const {rate, review, reviewDate ,userName} = reviews;
+                        return (
+                            <div className='review' key={index}>
+                                 <span>
+                                    Por {userName}
+                                </span>
+                                <StarsRating value={rate} disabled />
+                                <p>{review}</p>
+                                <span>
+                                    {reviewDate}
+                                </span>
+
+                            </div>
+                        )
+                      })
+                     }
+                      </>
+                      ) 
+                    }
+                </div>
             </div>
         </ProductDetailsContainer>
     );
