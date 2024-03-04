@@ -5,7 +5,12 @@ import { FcSalesPerformance } from "react-icons/fc";
 import { BsCart4 } from "react-icons/bs";
 import { TbShoppingCartShare } from "react-icons/tb";
 import { Container, Grid } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { UseFetchCollection } from '../../../hooks/useFetchCollection';
+import { useEffect } from 'react';
+import { STORE_PRODUCTS } from '../../../redux/slice/productSlice';
+import { CALC_TOTAL_ORDER_AMOUNT, STORE_ORDERS } from '../../../redux/slice/orderSlice';
+import { UseFormatAmount } from '../../../hooks/useFormatAmount';
 
 // ICONOS
 const earning = <FcSalesPerformance size={40} />;
@@ -16,6 +21,23 @@ const orders = <TbShoppingCartShare size={40} color='red'/>
 const Home = () => {
 
     const {userName}= useSelector((state)=>state.auth)
+    const {orderHistory , totalOrderAmount} = useSelector((state)=>state.orders)
+    const products = useSelector((state)=>state.product.products);
+    const dispatch = useDispatch();
+    const {formatAmount} = UseFormatAmount()
+
+    const fbProducts = UseFetchCollection('products');
+    const {data} = UseFetchCollection('orders');
+    
+    useEffect(() => {
+        dispatch(STORE_PRODUCTS({
+                products : fbProducts.data
+        }));
+        dispatch(STORE_ORDERS(data));
+        dispatch(CALC_TOTAL_ORDER_AMOUNT(data));
+
+    }, [data, dispatch, fbProducts.data]);
+
 
     return (
         <HomeContainer>        
@@ -26,7 +48,7 @@ const Home = () => {
                     <InfoBox
                         cardClass={'card  card1'}
                         title="Ganancias"
-                        count={'$7.000.000'}
+                        count={`$${formatAmount(totalOrderAmount)}`}
                         icon={earning}
                     />
                     </Grid>
@@ -37,7 +59,7 @@ const Home = () => {
                     <InfoBox
                         cardClass={'card  card2'}
                         title="Productos"
-                        count={12}
+                        count={products.length}
                         icon={Products}
                     />
                     </Grid>
@@ -48,7 +70,7 @@ const Home = () => {
                     <InfoBox
                         cardClass={'card  card3'}
                         title="Pedidos"
-                        count={10}
+                        count={orderHistory.length}
                         icon={orders}
                     />
                     </Grid>
