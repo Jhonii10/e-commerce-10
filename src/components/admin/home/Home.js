@@ -4,10 +4,10 @@ import InfoBox from '../../infoBox/InfoBox';
 import { FcSalesPerformance } from "react-icons/fc";
 import { BsCart4 } from "react-icons/bs";
 import { TbShoppingCartShare } from "react-icons/tb";
+import { Container, Grid } from '@mui/material';
+import { useSelector } from 'react-redux';
 
-
-
-// iconos 
+// ICONOS
 const earning = <FcSalesPerformance size={40} />;
 const Products = <BsCart4 size={40} color='blue'/>
 const orders = <TbShoppingCartShare size={40} color='red'/>
@@ -15,34 +15,49 @@ const orders = <TbShoppingCartShare size={40} color='red'/>
 
 const Home = () => {
 
+    const {userName}= useSelector((state)=>state.auth)
 
     return (
-        <HomeContainer>
-            <div className='home'>
-                <h2>Bienvenido administrador</h2>
-                <div className='grid-container'>
+        <HomeContainer>        
+                <Container maxWidth="xl">
+                <h2>Bienvenido {userName} 👋</h2>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={4} sm={6}>
                     <InfoBox
                         cardClass={'card  card1'}
-                        title="Ventas"
+                        title="Ganancias"
                         count={'$7.000.000'}
                         icon={earning}
                     />
+                    </Grid>
+                
+
+                
+                    <Grid item xs={12} md={4} sm={6}>
                     <InfoBox
                         cardClass={'card  card2'}
                         title="Productos"
                         count={12}
                         icon={Products}
                     />
+                    </Grid>
+               
+
+                
+                    <Grid item xs={12} md={4} >
                     <InfoBox
                         cardClass={'card  card3'}
                         title="Pedidos"
                         count={10}
                         icon={orders}
                     />
+                    </Grid>
+                </Grid>
 
-                </div>
 
-            </div>
+
+                </Container>
+
         </HomeContainer>
     );
 }
@@ -52,11 +67,6 @@ export default Home;
 
 const HomeContainer = styled.div`
 
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 12px;
-    }
 
     .card {
     border: 1px solid #ccc;   
