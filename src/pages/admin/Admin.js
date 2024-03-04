@@ -10,12 +10,11 @@ const AdminContainer = styled.div`
     display:flex;
 
     .navbar{
-        width: 20%;
-        min-height: 80vh;
+      
     }
 
     .content {
-        width: 80%;
+        width: 100%;
         padding: 1rem;
     }
 
