@@ -1,5 +1,15 @@
 // ----------------------------------------------------------------------
 
+const linkElement = document.createElement('link');
+
+// Establecer los atributos necesarios
+linkElement.rel = 'stylesheet';
+linkElement.href = 'https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap';
+
+// Agregar el elemento link al head del documento
+document.head.appendChild(linkElement);
+
+
 export function remToPx(value) {
   return Math.round(parseFloat(value) * 16);
 }
