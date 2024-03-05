@@ -14,14 +14,13 @@ const CheckoutForm =() =>{
   const navigate = useNavigate();
   const dispatch= useDispatch();
 
-  const {shippingAddress} = useSelector((state)=>state.checkout);
-  const {userID , email } = useSelector((state)=>state.auth);
+  const {shippingAddress, shippingDate } = useSelector((state)=>state.checkout);
+  const {userID , email, userName} = useSelector((state)=>state.auth);
   const { cartItems, cartTotalAmount} = useSelector((state)=>state.cart);
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   
-
   useEffect(() => {
     if (!stripe) {
       return;
@@ -59,6 +58,7 @@ const CheckoutForm =() =>{
     const date = today.toLocaleDateString();
     const time = today.toLocaleTimeString();
     const orderConfig = {
+        userName,
         userID,
         email,
         orderDate:date,
@@ -66,6 +66,7 @@ const CheckoutForm =() =>{
         orderAmount: cartTotalAmount,
         orderStatus:'Pendiente',
         cartItems,
+        shippingDate,
         shippingAddress,
         createdAt: Timestamp.now().toDate(),
 
