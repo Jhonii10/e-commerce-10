@@ -4,6 +4,8 @@ import { UseFetchDocument } from '../../../hooks/useFetchDocument';
 import { OrderDetailsContainer } from './OrderDetailsContainer';
 import Loading from '../../loader/Loading';
 import { UseFormatAmount } from '../../../hooks/useFormatAmount';
+import ChangeOrderStatus from '../orderStatus/ChangeOrderStatus';
+
 
 const OrderDetails = () => {
 
@@ -131,7 +133,11 @@ const OrderDetails = () => {
 
                 </div>
 
+                <ChangeOrderStatus/>
+
             </div>
+            
+            
             
         </OrderDetailsContainer>
     );

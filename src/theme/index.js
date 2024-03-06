@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 // @mui
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
-//
+
 
 import typography from './typography';
 import GlobalStyles from './globalStyles';
