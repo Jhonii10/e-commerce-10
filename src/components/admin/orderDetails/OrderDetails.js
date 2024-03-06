@@ -5,6 +5,7 @@ import { OrderDetailsContainer } from './OrderDetailsContainer';
 import Loading from '../../loader/Loading';
 import { UseFormatAmount } from '../../../hooks/useFormatAmount';
 import ChangeOrderStatus from '../orderStatus/ChangeOrderStatus';
+import { UseChangeOrdersStatus } from '../../../hooks/useChangeOrdersStatus';
 
 
 const OrderDetails = () => {
@@ -13,6 +14,7 @@ const OrderDetails = () => {
     const [order, setOrder] = useState(null);
     const {document} = UseFetchDocument('orders', id)
     const {formatAmount}=UseFormatAmount();
+    const {orderStatus} = UseChangeOrdersStatus(order?.orderStatus);
     console.log(document);
 
     
@@ -44,8 +46,7 @@ const OrderDetails = () => {
                             <p>
                                <b>Estado del pedido:</b>{" "} 
                                <span
-                                    className={`badge ${order.orderStatus !== 'Entregado'
-                                    ? ' pending':' delivered' }`}
+                                    className={`badge ${orderStatus}`}
                                     >
                                     {order.orderStatus}
                                 </span>
@@ -133,7 +134,7 @@ const OrderDetails = () => {
 
                 </div>
 
-                <ChangeOrderStatus/>
+                <ChangeOrderStatus order={order} id={id}/>
 
             </div>
             

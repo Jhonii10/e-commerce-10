@@ -4,11 +4,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { UseFetchDocument } from '../../hooks/useFetchDocument';
 import { Loading } from '../../components';
+import { UseChangeOrdersStatus } from '../../hooks/useChangeOrdersStatus';
 
 const OrderDetails = () => {
     const {id} = useParams();
     const [order, setOrder] = useState(null);
     const {document} = UseFetchDocument('orders', id)
+    const {orderStatus} = UseChangeOrdersStatus(order?.orderStatus);
     const navigate = useNavigate();
 
     const formatAmount = (amount) => {
@@ -45,7 +47,12 @@ const OrderDetails = () => {
                                <b>Valor del pedido: </b>$ {formatAmount(order.orderAmount)} 
                             </p>
                             <p>
-                               <b>Estado del pedido:</b> {order.orderStatus} 
+                               <b>Estado del pedido:</b>{" "} 
+                               <span
+                                    className={`badge ${orderStatus}`}
+                                    >
+                                    {order.orderStatus}
+                                </span>
                             </p>
 
 

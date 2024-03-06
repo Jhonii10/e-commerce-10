@@ -75,5 +75,29 @@ export const OrderDetailsContainer = styled.section`
 
 } 
 
+.badge{
+        padding: 0.25em 0.4em;
+        border-radius: 2px;
+        font-weight: 500;
+    }
+    .pending {
+        color: #212529;
+        background-color: #ffc107;
+        
+    }
+    .processing {
+        color: #000000;
+        background-color: #a5e5ff;
+    }
+
+    .shipped {
+        color: #f7f7f7;
+        background-color: #51b9d0;
+    }
+    .delivered {
+        color: #fff;
+        background-color: #28a745
+        
+    }
 
 `;

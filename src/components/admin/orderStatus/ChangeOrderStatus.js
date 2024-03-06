@@ -2,15 +2,50 @@ import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Loader from '../../loader/Loader';
+import { Timestamp, doc, setDoc } from 'firebase/firestore';
+import { db } from '../../../firebase/config';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const ChangeOrderStatus = () => {
+const ChangeOrderStatus = ({order , id}) => {
     const [status, setStatus] = useState('');
     const [Loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const handleUpdated = (e) => {
+    const editOrder = async()=>{
         setLoading(true)
+        const orderConfig = {
+            userName:order.userName,
+            userID:order.userID,
+            email:order.email,
+            orderDate:order.orderDate,
+            orderTime:order.orderTime,
+            orderAmount: order.orderAmount,
+            orderStatus:status,
+            cartItems:order.cartItems,
+            shippingDate:order.shippingDate,
+            shippingAddress:order.shippingAddress,
+            createdAt:order.createdAt,
+            editAt:Timestamp.now().toDate(),
+
+        }   
+
+        try {
+            setDoc(doc(db, 'orders',id), orderConfig);
+            setLoading(false)
+            toast.success('Estado actualizado exitosamente')
+            navigate("/admin/orders");
+        } catch (error) {
+            setLoading(false)
+            toast.error(error.message)
+
+        }
+    
+    }
+
+    const handleUpdated = (e) => { 
         e.preventDefault();
-        setLoading(false);
+        editOrder();
     }
 
     return (
