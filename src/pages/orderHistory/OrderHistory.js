@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { STORE_ORDERS } from '../../redux/slice/orderSlice';
 import { Loader } from '../../components';
 import { useNavigate } from 'react-router-dom';
+import { UseChangeOrdersStatus } from '../../hooks/useChangeOrdersStatus';
 
 
 const OrderHistory = () => {
@@ -65,6 +66,7 @@ const OrderHistory = () => {
                                     {
                                         filteredOrders.map((order, i) =>{
                                             const {id, orderDate , orderTime, orderAmount , orderStatus }= order;
+                                            const {orderStatus:status} = UseChangeOrdersStatus(orderStatus);
                                             return(
                                                 <tr key={i} onClick={()=>handleClik(id)}>
                                                    <td>{i+1}</td>
@@ -73,8 +75,7 @@ const OrderHistory = () => {
                                                    <td>$ {formatAmount(orderAmount)}</td>
                                                    <td>
                                                         <span
-                                                            className={`badge ${orderStatus !== 'Entregado'
-                                                            ? ' pending':' delivered' }`}
+                                                            className={`badge ${status}`}
                                                             >
                                                             {orderStatus}
                                                         </span>
