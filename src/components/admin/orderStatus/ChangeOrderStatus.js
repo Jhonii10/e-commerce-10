@@ -31,7 +31,7 @@ const ChangeOrderStatus = ({order , id}) => {
         }   
 
         try {
-            setDoc(doc(db, 'orders',id), orderConfig);
+            await setDoc(doc(db, 'orders',id), orderConfig);
             setLoading(false)
             toast.success('Estado actualizado exitosamente')
             navigate("/admin/orders");
@@ -43,8 +43,8 @@ const ChangeOrderStatus = ({order , id}) => {
     
     }
 
-    const handleUpdated = (e) => { 
-        e.preventDefault();
+    const handleUpdated = (e) => {
+        e.preventDefault();       
         editOrder();
     }
 
@@ -56,7 +56,7 @@ const ChangeOrderStatus = ({order , id}) => {
                     <h4>Actualizar estado</h4>
                     <form onSubmit={handleUpdated} >
                         <span>
-                            <select value={status} onChange={(e)=>setStatus(e.target.value)}>
+                            <select value={status} onChange={(e)=>setStatus(e.target.value)} required>
                                 <option value='' disabled >Elije uno</option>
                                 <option value={'Procesando'}>Procesando</option>
                                 <option value={'Enviado'}>Enviado</option>

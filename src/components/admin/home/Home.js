@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { STORE_PRODUCTS } from '../../../redux/slice/productSlice';
 import { CALC_TOTAL_ORDER_AMOUNT, STORE_ORDERS } from '../../../redux/slice/orderSlice';
 import { UseFormatAmount } from '../../../hooks/useFormatAmount';
+import Chart from '../chart/Chart';
 
 // ICONOS
 const earning = <FcSalesPerformance size={40} />;
@@ -73,6 +74,10 @@ const Home = () => {
                         count={orderHistory.length}
                         icon={orders}
                     />
+                    </Grid>
+
+                    <Grid item  xs={12} md={8}>
+                        <Chart/>
                     </Grid>
                 </Grid>
 

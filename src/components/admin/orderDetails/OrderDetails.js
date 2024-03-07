@@ -15,7 +15,6 @@ const OrderDetails = () => {
     const {document} = UseFetchDocument('orders', id)
     const {formatAmount}=UseFormatAmount();
     const {orderStatus} = UseChangeOrdersStatus(order?.orderStatus);
-    console.log(document);
 
     
     useEffect(() => {
