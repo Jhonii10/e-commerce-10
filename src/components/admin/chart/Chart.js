@@ -52,8 +52,6 @@ const Chart = () => {
   const shipped = getOrderCount(array, q3);
   const delivered = getOrderCount(array, q4);
 
-  console.table(array, q1, q2, q3, q4);
-
     const barColors = [
         '#ffc107',
         '#a5e5ff',

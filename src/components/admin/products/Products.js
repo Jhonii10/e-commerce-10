@@ -1,5 +1,5 @@
 import { deleteDoc, doc } from 'firebase/firestore';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { db, storage } from '../../../firebase/config';
 import ProductsContainer from './ProductsContainer';
@@ -12,18 +12,36 @@ import Notiflix from 'notiflix';
 import { UseFetchCollection } from '../../../hooks/useFetchCollection';
 import { useDispatch, useSelector } from 'react-redux';
 import { STORE_PRODUCTS } from '../../../redux/slice/productSlice';
+import Search from '../../search/Search';
+import { FILTER_BY_SEARCH } from '../../../redux/slice/filterSlice';
+import Pagination from '../../pagination/Pagination';
 
 const Products = () => {
-
+    const [search, setSearch] = useState('');
+    const {filteredProducts} = useSelector((state)=>state.filter);
     const {isLoading,data} = UseFetchCollection('products')
     
     const {products} = useSelector((state)=>state.product)
     
     const dispatch = useDispatch();
 
+    //pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(12);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+
     useEffect(() => {
         dispatch(STORE_PRODUCTS({products: data}))
     }, [data, dispatch]);
+
+    useEffect(() => {
+        dispatch(FILTER_BY_SEARCH({products, search}))
+    }, [dispatch, products, search]);
+
+    
     
     const confirmDelete = (id, imageUrl)=>{
         Notiflix.Confirm.show(
@@ -62,6 +80,7 @@ const Products = () => {
             toast.error(error.message)
         }
     }
+
     return (
         <>
         {
@@ -69,6 +88,12 @@ const Products = () => {
         }
         <ProductsContainer>
             <h2>Todos Los Productos</h2>
+                <div>
+                     <p>
+                        <b>{filteredProducts.length}</b> Productos encontrados
+                    </p>
+                    <Search value={search} onChange={(event)=>{setSearch(event.target.value)}}/>
+                </div>
             {
                 products.length === 0 
                 ? (
@@ -87,7 +112,7 @@ const Products = () => {
                         </thead>
                         <tbody>
                         {
-                            products.map((product, index)=>{
+                            currentProducts.map((product, index)=>{
                                 const {id , name , price , imageUrl , category} = product
 
                                 return(
@@ -129,6 +154,14 @@ const Products = () => {
 
                 )
             }
+
+            <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                productsPerPage={productsPerPage}
+                totalProducts={filteredProducts.length}
+                
+            />
 
         </ProductsContainer>
         </>
