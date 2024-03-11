@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { FaPhoneAlt, FaEnvelope, FaTwitter } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
+import emailjs from '@emailjs/browser';
+import { toast } from 'react-toastify';
 
 const Contact = () => {
+
+    const form = useRef();
+
+    const sendEmail = (e) => {
+      e.preventDefault();
+      
+      emailjs
+        .sendForm(process.env.REACT_APP_YOUR_SERVICE_ID, process.env.REACT_APP_YOUR_TEMPLATE_ID, form.current, {
+          publicKey:process.env.REACT_APP_YOUR_PUBLIC_KEY,
+        })
+        .then(
+          () => {
+            toast.success('Enviado exitosamente')
+            
+          },
+          (error) => {
+            toast.error(`${error.message}`);
+          },
+        );
+        e.target.reset();
+    };
+
     return (
         <ContactContainer>
             <div className='container'>
@@ -12,17 +36,17 @@ const Contact = () => {
                     <div className='col col-1 '>
                         <div className='cart-list-container'>
                             <div className='section'>
-                                <form>
+                                <form ref={form} onSubmit={sendEmail}>
                                     <input
                                         type="text"
-                                        name="name"
+                                        name="user_name"
                                         placeholder="Nombre"
                                         required
                                     />
                                     
                                     <input
                                         type="email"
-                                        name="Email"
+                                        name="user_email"
                                         placeholder="Correo electrónico"
                                         required
                                     />
