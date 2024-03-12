@@ -6,6 +6,7 @@ import ThemeProvider from './theme';
 import Rutas from './routes/Rutas';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
      <ThemeProvider>
       <Provider store={store}>
+      <BrowserRouter>
       <Rutas/>
+      </BrowserRouter>
       </Provider>
     </ThemeProvider>
   </React.StrictMode>

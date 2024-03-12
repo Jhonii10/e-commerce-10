@@ -4,11 +4,10 @@ import {getAuth} from 'firebase/auth'
 import {getFirestore} from 'firebase/firestore'
 import {getStorage} from 'firebase/storage'
 
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCO1KKnjpR2UKo4veZERCQbOLjQ8LwgQ-E",
+  apiKey: process.env.REACT_APP_FB_API_KEY,
   authDomain: "react-eshop-110.firebaseapp.com",
   projectId: "react-eshop-110",
   storageBucket: "react-eshop-110.appspot.com",

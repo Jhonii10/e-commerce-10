@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import {  Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { CheckoutDetails, Footer, Header } from '../components';
-import { Admin, Cart, Checkout, Contact, Home, OrderDetails, OrderHistory, ReviewProduct } from '../pages';
+import { Admin, Cart, Checkout, Contact, Error404, Home, OrderDetails, OrderHistory, ReviewProduct } from '../pages';
 import { Login, Register, Reset } from '../pages/auth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,19 +11,20 @@ import ProductsDetails from '../components/product/productDetails/ProductsDetail
 import { CheckoutSuccess } from '../components/checkout';
 
 const Rutas = () => {
-
     const {email, isLoggedIn} = useSelector((state)=>state.auth);
     const {cartItems} = useSelector((state)=>state.cart)
     const isAdmin = isLoggedIn && email === 'jhoni@gmail.com';
-
+    const location = useLocation();
+    const show = location.pathname !== '/404'
+  
     return (
         <>
-            
-            <BrowserRouter>
                 <ToastContainer/>
-                <Header/>
+
+                 {show && <Header />}
+                 
                 <Routes>
-                    <Route path='/' element={<Home/>}/>
+                    <Route exact path="/" element={<Home/>}/>
                     <Route path='/contact' element={<Contact/>}/>
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<Register />} />
@@ -40,6 +41,7 @@ const Rutas = () => {
 
                     <Route path='/checkout/payment' element={<Checkout/>}/>
                     <Route path='/checkout/payment-success' element={<CheckoutSuccess/>}/>
+                    <Route path='/product-details/:id' element={<ProductsDetails/>}/>
 
                     {
                         isAdmin &&
@@ -54,13 +56,11 @@ const Rutas = () => {
                     />
                     }
 
-                    {/* <Route path='/*' element={<Navigate to='/'/>}/> */}
-
-                    <Route path='/product-details/:id' element={<ProductsDetails/>}/>
+                    <Route path='*' element={<Navigate to='404'/>}/>
+                    <Route path='/404' element={<Error404/>}/>
 
                 </Routes>
-                <Footer/>    
-            </BrowserRouter>
+                {show && <Footer/>}       
         </>
     );
 }
