@@ -6,3 +6,5 @@ export {default as OrderHistory} from './orderHistory/OrderHistory'
 export {default as Checkout} from './checkout/Checkout'
 export {default as OrderDetails} from './orderDetails/OrderDetails'
 export {default as ReviewProduct} from './review/ReviewProduct'
+export {default as Error404} from './404/404'
+
