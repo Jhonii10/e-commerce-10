@@ -4,7 +4,7 @@ const AdminOnlyRoute = ({children}) => {
 
     const {email} = useSelector((state)=>state.auth);
     
-    if (email === 'jhoni@gmail.com') {
+    if (email === process.env.REACT_APP_ADMIN_USER) {
         return children;
     }else{
         return null;
