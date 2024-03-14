@@ -8,6 +8,7 @@ const initialState = {
 
 }
 
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -18,12 +19,14 @@ export const authSlice = createSlice({
         state.email= email;
         state.userName = userName;
         state.userID = userID;
+        localStorage.setItem('auth', JSON.stringify(state));
     },
-    REMOVE_ACTIVE_USER:(state, action) => {
+    REMOVE_ACTIVE_USER:(state) => {
         state.isLoggedIn = false;
         state.email= null;
         state.userName = null;
         state.userID = null;
+        localStorage.removeItem('auth');
     }
   }
 })
