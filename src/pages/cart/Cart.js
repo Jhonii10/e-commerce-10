@@ -7,6 +7,7 @@ import { AiOutlineMinus,AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { SlReload } from "react-icons/sl";
 import { ADD_TO_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, CLEAR_CART, DECREASE_CART, REMOVE_FROM_CART, SAVE_URL } from '../../redux/slice/cartSlice';
+import { GiShoppingCart } from "react-icons/gi";
 
 
 
@@ -59,15 +60,16 @@ const Cart = () => {
                 
                 {
                     cartItems.length === 0
-                    ? <>
-                        <p>No hay productos en el carrito.</p>
+                    ? <div className='cart-emplit'>
+                        <GiShoppingCart size={120} color='#888'/>
+                        <p>El carrito de compras está vacío.</p>
                         <br/>
                         <div>
-                            <Link to={'/#productos'}>
-                                &larr; Continuar Comprando
+                            <Link to={'/#productos'} className='btn'>
+                                <span> Volver a la tienda </span>
                             </Link>
                         </div>
-                      </>
+                      </div>
                     : <>
                         <div className='col col-1'>
                         <div className='cart-list-container'>

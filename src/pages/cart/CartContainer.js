@@ -247,6 +247,52 @@ export const CartContainer = styled.section`
 
     }
 
+    .cart-emplit{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      width:100%;
+      height: 58vh;
+      padding: 50px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.25rem;
+
+      p{
+        font-size: 20px;
+        line-height: 22px;
+        color: #888;
+        font-weight: 500;
+      }
+
+      .btn {
+        margin-top: 5px;
+            display: inline-block;
+            border: 0;
+            border-radius: 5px ;
+            padding: 0 ;
+            color: #fff;
+            background-color: #8e0808;
+            width: 148px;
+            cursor: pointer;
+
+            span{
+                padding: 10px 30px;
+                font-size: 14px;
+                font-weight: 600;
+                font-family: 'Quicksand';
+                display: block;
+                border-radius: 5px !important;
+                padding: 10px 15px;
+                color: #fff;
+                transition: color 0.1s ease-in-out, background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    
+            }
+      }
+    }
+
+
+
 
     @media screen and (max-width: 999px) {
 
