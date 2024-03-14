@@ -14,7 +14,7 @@
         const {cartItems} = useSelector((state)=>state.cart)
 
         const persistedState = JSON.parse(localStorage.getItem('auth'));
-        const isAdmin = persistedState?.email === 'jhoni@gmail.com' && persistedState?.isLoggedIn ? true : false;
+        const isAdmin = persistedState?.email === process.env.REACT_APP_ADMIN_USER && persistedState?.isLoggedIn ? true : false;
 
         const location = useLocation();
         const show = location.pathname !== '/404' 

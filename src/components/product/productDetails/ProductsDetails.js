@@ -7,6 +7,7 @@ import { ADD_MULTIPLE_CART, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slic
 import { UseFetchDocument } from '../../../hooks/useFetchDocument';
 import { UseFetchCollection } from '../../../hooks/useFetchCollection';
 import StarsRating from 'react-star-rate';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 
  const ProductDetailsContainer = styled.section`
@@ -316,11 +317,13 @@ const ProductsDetails = () => {
                                             <button 
                                                 name="button" 
                                                 type="button" 
-                                                class="quantity-square minus-square" 
+                                                className="quantity-square minus-square" 
                                                 data-type="minus" 
                                                 onClick={decrementQuantity}
                                                 disabled={quantity <= 1 && true}
-                                            >-</button>
+                                            >
+                                                <AiOutlineMinus size={12} />
+                                            </button>
                                             <div class="qty-input">
                                             <input 
                                                 type="number" 
@@ -341,11 +344,11 @@ const ProductsDetails = () => {
                                             <button 
                                                 name="button" 
                                                 type="button" 
-                                                class="quantity-square plus-square" 
+                                                className="quantity-square plus-square" 
                                                 data-type="plus" 
                                                 onClick={incrementQuantity}
                                                 disabled={quantity >= 10 && true}
-                                            >+</button>
+                                            ><AiOutlinePlus size={12}/></button>
                                         </div>
                                         </div>
                                     </div>
