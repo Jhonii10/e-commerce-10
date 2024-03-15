@@ -35,7 +35,8 @@ const HeaderContainer = styled.header`
 
     ul {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
       list-style: none;
 
       .logo-mobile {
@@ -110,6 +111,12 @@ const HeaderContainer = styled.header`
   .menu-icon {
     cursor: pointer;
     display: none;
+  }
+
+  .user-info{
+     display:flex;
+     justify-content: center;
+    align-items: center;
   }
 
   @media screen and (max-width: 800px) {
@@ -212,15 +219,21 @@ const HeaderContainer = styled.header`
 
     .menu-icon {
       display: flex;
+      justify-content: center;
+    align-items: center;
 
       > * {
-        margin-left: 2rem;
+        margin-left: 1rem;
       }
     }
 
-    
+    .user-info{
+     display:none; 
+  }
 
   }
+
+  
 
   .btn {
         font-size: 1rem;
