@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { ProductsItemContainer } from './ProductsItemContainer';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from '../../../redux/slice/cartSlice';
+import { UseFormatAmount } from '../../../hooks/useFormatAmount';
 
 const ProductItem = ({product}) => {
     const {id,imageUrl,name,price} = product;
+    const {formatAmount} = UseFormatAmount()
     const dispatch = useDispatch();
 
     const shortenText = (text, n)=>{
@@ -32,7 +34,7 @@ const ProductItem = ({product}) => {
             <div className="content-item" >
                 <div className='details'>
                     <h3>{shortenText(name , 150)}</h3>
-                    <p>${price}</p>
+                    <p>${formatAmount(price)}</p>
                     
                 </div>
                 
