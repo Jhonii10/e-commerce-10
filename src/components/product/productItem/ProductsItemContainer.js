@@ -79,6 +79,7 @@ export const ProductsItemContainer = styled.div`
         margin: 0;
         font-weight: 700;
         line-height: 100%;
+        margin: 6px 0 6px 0
       }
     }
     
