@@ -16,6 +16,7 @@ const FooterContainer = styled.footer`
     color: #fff;
     margin: 0;
     font-size: 14px;
+    text-align:center;
   }
   
   a{
