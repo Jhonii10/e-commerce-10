@@ -105,6 +105,8 @@ const ProductList = ({products}) => {
                 
             />
 
+            
+
         </ProductListContainer>
     );
 }

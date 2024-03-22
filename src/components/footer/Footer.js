@@ -11,6 +11,7 @@ const FooterContainer = styled.footer`
   justify-content: center;
   align-items: center;
   height: 8rem;
+  padding: 12px;
 
   p{
     color: #fff;
