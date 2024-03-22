@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 
 
 
@@ -8,6 +10,7 @@ const Pagination = ({currentPage,setCurrentPage,productsPerPage,totalProducts}) 
     const pageNumbers = [];
     const totalPages = totalProducts / productsPerPage
 
+  
     // limit the page number show
 
     const [pageNumberLimit] = useState(5);
@@ -19,28 +22,25 @@ const Pagination = ({currentPage,setCurrentPage,productsPerPage,totalProducts}) 
         setCurrentPage(pageNumbers)
     } 
 
-    // go to next page
-    const paginateNext = ()=>{
-        if (currentPage + 1 > maxPageNumberLimit ) {
-            setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-            setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-        } else {
-            return
-        }
-        
-
+    // GO to next page
+  const paginateNext = () => {
+    setCurrentPage(currentPage + 1);
+    // Show next set of pageNumbers
+    if (currentPage + 1 > maxPageNumberLimit) {
+        setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+        setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
     }
+  };
 
-    // go to prev page
-    const paginatePrev = ()=>{
-        if ((currentPage - 1) % pageNumberLimit === 0 ) {
-            setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-            setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-        } else {
-            return
-        }
-        
+  // GO to prev page
+  const paginatePrev = () => {
+    setCurrentPage(currentPage - 1);
+    // Show prev set of pageNumbers
+    if ((currentPage - 1) % pageNumberLimit === 0) {
+        setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+        setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
+  };
     
     for (let index = 1; index <= Math.ceil(totalProducts / productsPerPage ); index++) {
         
@@ -55,7 +55,7 @@ const Pagination = ({currentPage,setCurrentPage,productsPerPage,totalProducts}) 
             <li 
             onClick={paginatePrev}
             className={currentPage === pageNumbers[0] ? 'hidden' : null}
-            >Anterior</li>
+            ><FaArrowLeft /></li>
             {
                 pageNumbers.map((number)=>{
 
@@ -80,10 +80,10 @@ const Pagination = ({currentPage,setCurrentPage,productsPerPage,totalProducts}) 
             <li 
             onClick={paginateNext}
             className={currentPage === pageNumbers.length ? 'hidden' : null}
-            >Siguiente</li>
+            ><FaArrowRight /></li>
             <p>
                 <b className='page'>{`Pagina  ${currentPage}`}</b>
-                <span> De </span>
+                <span> de </span>
                 <b>{Math.ceil(totalPages)}</b>
 
             </p>
@@ -104,6 +104,7 @@ const PaginationContainer = styled.ul`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 2px;
 
   .hidden {
     display: none;
@@ -119,6 +120,7 @@ const PaginationContainer = styled.ul`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    border-radius: 50%;
   }
   p {
     margin-left: 1rem;
