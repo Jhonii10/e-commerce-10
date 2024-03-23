@@ -13,6 +13,7 @@ import { ShowOnLogIn, ShowOnLogout } from '../hiddenLink/HiddenLink';
 import { CALCULATE_TOTAL_QUANTITY } from '../../redux/slice/cartSlice';
 import { SiShopee } from "react-icons/si";
 import Account from './Account';
+import { CiUser } from "react-icons/ci";
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
