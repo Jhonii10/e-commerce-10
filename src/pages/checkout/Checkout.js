@@ -33,7 +33,7 @@ const Checkout = () => {
          
         // Create PaymentIntent as soon as the page loads
         // http://localhost:4242/create-payment-intent
-        fetch("https://ecommerce-10.up.railway.app/create-payment-intent", {
+        fetch("https://shope-ecommerce.up.railway.app/create-payment-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
