@@ -22,6 +22,9 @@ export default function GlobalStyles() {
           padding: 0,
           width: '100%',
           height: '100%',
+          '&.blur': {
+            overflow: 'hidden', // Se puede ajustar el valor de desenfoque según necesites
+          },
         },
         '#root': {
           width: '100%',

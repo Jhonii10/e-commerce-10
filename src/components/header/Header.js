@@ -13,6 +13,7 @@ import { ShowOnLogIn, ShowOnLogout } from '../hiddenLink/HiddenLink';
 import { CALCULATE_TOTAL_QUANTITY } from '../../redux/slice/cartSlice';
 import { SiShopee } from "react-icons/si";
 import Account from './Account';
+import { Helmet } from 'react-helmet';
 
 
 const activeLink = ({isActive})=> isActive ? 'active':''
@@ -158,6 +159,9 @@ const Header = () => {
                 </nav>
                 
                 <div className='menu-icon'>
+                <Helmet>
+                <body className={showMenu ? 'blur' : ''} />
+                </Helmet>
                     <ShowOnLogIn>
                         <Account/>
                     </ShowOnLogIn>
