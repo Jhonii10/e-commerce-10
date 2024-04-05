@@ -111,7 +111,9 @@ const HeaderContainer = styled.header`
   .menu-icon {
     cursor: pointer;
     display: none;
+
   }
+
 
   .user-info{
      display:flex;
